@@ -52,8 +52,8 @@ module Frontman
       if @cache.key?(method_name.to_s)
         cached = @cache[method_name.to_s]
 
-        if Frontman::App.instance.refresh_data_files
-          cached.refresh if cached.is_a?(Frontman::DataStoreFile)
+        if Frontman::App.instance.refresh_data_files && cached.is_a?(Frontman::DataStoreFile)
+          cached.refresh
         end
 
         return cached
@@ -81,7 +81,7 @@ module Frontman
       Dir.entries(@path).sort.each do |file|
         next if (file == '.') || (file == '..')
 
-        file_path = @path + '/' + file
+        file_path = "#{@path}/#{file}"
 
         # remove numbers and first '-' from the filename so we can
         # - generate nice urls

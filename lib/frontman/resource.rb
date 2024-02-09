@@ -55,7 +55,7 @@ module Frontman
       path_without_extensions = split.first(split.length - 1)
                                      .push(T.must(without_extension))
                                      .join('/')
-      extensions = T.must(split.last).split('.')[1..-1]
+      extensions = T.must(split.last).split('.')[1..]
       [path_without_extensions, extensions]
     end
 
@@ -71,9 +71,9 @@ module Frontman
       @extension = dest_file_extensions.first
 
       @destination_path = if (@extension == 'html' || extension.nil?) && !is_index_page
-                            destination_without_extension + '/index.html'
+                            "#{destination_without_extension}/index.html"
                           else
-                            destination_without_extension + '.' + @extension
+                            "#{destination_without_extension}.#{@extension}"
                           end
       @path = "/#{@destination_path.chomp('index.html')}"
               .gsub('//', '/')
@@ -81,7 +81,7 @@ module Frontman
 
     sig { void }
     def parse_data_file
-      data_file = @file_path_without_extension + '.yml'
+      data_file = "#{@file_path_without_extension}.yml"
       return unless File.exist?(data_file)
 
       begin

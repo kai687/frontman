@@ -92,7 +92,7 @@ module Frontman
 
     sig { params(key: String, value: String).returns(String) }
     def add_to_manifest(key, value)
-      @assets_manifest[key] = '/' + value.sub(%r{^/}, '')
+      @assets_manifest[key] = "/#{value.sub(%r{^/}, '')}"
     end
 
     sig { params(dirs: T.any(Array, Hash)).void }
@@ -122,11 +122,11 @@ module Frontman
     )
       @asset_pipelines.push(
         name: name || command,
-        source_dir: source_dir,
-        command: command,
+        source_dir:,
+        command:,
         timing: timing == :after ? :after : :before,
-        mode: mode,
-        delay: delay
+        mode:,
+        delay:
       )
     end
 

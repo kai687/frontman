@@ -29,7 +29,7 @@ module LinkHelper
                 .decode(string)
                 .gsub(%r{</?[^>]*>}, '')
                 .gsub(/\s/, '-')
-                .gsub(%r{[\[\]()/",`'&<>\.*]}, '')
+                .gsub(%r{[\[\]()/",`'&<>.*]}, '')
                 .downcase
   end
 end

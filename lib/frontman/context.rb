@@ -92,21 +92,21 @@ module Frontman
 
     sig { void }
     def save_buffer
-      renderers.each do |_, renderer|
+      renderers.each_value do |renderer|
         renderer.save_buffer(self) if renderer.respond_to?(:save_buffer)
       end
     end
 
     sig { void }
     def restore_buffer
-      renderers.each do |_, renderer|
+      renderers.each_value do |renderer|
         renderer.restore_buffer(self) if renderer.respond_to?(:restore_buffer)
       end
     end
 
     sig { returns(T.untyped) }
     def load_buffer
-      renderers.each do |_, renderer|
+      renderers.each_value do |renderer|
         content = renderer.load_buffer(self) if renderer.respond_to?(:load_buffer)
         return content if content
       end

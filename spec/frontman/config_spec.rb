@@ -6,7 +6,7 @@ require 'frontman/config'
 
 describe Frontman::Config do
   before(:each) do
-    Frontman::Config.all.keys.each do |key|
+    Frontman::Config.all.each_key do |key|
       Frontman::Config.delete(key)
     end
   end

@@ -34,7 +34,7 @@ module Frontman
 
       timer = Frontman::Toolbox::Timer.start
 
-      current_build_files = Dir.glob(Dir.pwd + '/build/**/*').reject do |f|
+      current_build_files = Dir.glob("#{Dir.pwd}/build/**/*").reject do |f|
         File.directory? f
       end
 
@@ -43,11 +43,11 @@ module Frontman
         File.directory? f
       end
 
-      mapping_path = Dir.pwd + '/_build.json'
+      mapping_path = "#{Dir.pwd}/_build.json"
       mapping = Frontman::Builder::Mapping.new(mapping_path)
       mapping.delete_file
 
-      build_directory = Dir.pwd + '/build/'
+      build_directory = "#{Dir.pwd}/build/"
       builder = Frontman::Builder::Builder.new
       builder.build_directory = build_directory
       builder.current_build_files = current_build_files

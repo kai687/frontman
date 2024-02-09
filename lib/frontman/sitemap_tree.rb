@@ -177,9 +177,9 @@ module Frontman
     def pretty_print(space)
       spaces = space >= 0 ? ' ' * space : ''
 
-      print(spaces + @url_part + "\n") if @url_part
+      print("#{spaces}#{@url_part}\n") if @url_part
 
-      print(spaces + " -> r\n") if @resource
+      print("#{spaces} -> r\n") if @resource
 
       @children.each do |child|
         child.pretty_print(space + 1)
