@@ -6,6 +6,7 @@ require 'frontman/renderers/erb_renderer'
 require 'frontman/renderers/haml_renderer'
 require 'frontman/renderers/slim_renderer'
 require 'frontman/renderers/markdown_renderer'
+require 'frontman/renderers/asciidoc_renderer'
 require 'singleton'
 require 'sorbet-runtime'
 
@@ -24,6 +25,7 @@ module Frontman
       @all_renderers ||= {
         erb: Frontman::ErbRenderer.instance,
         md: Frontman::MarkdownRenderer.instance,
+        adoc: Frontman::AsciidocRenderer.instance,
         haml: Frontman::HamlRenderer.instance,
         slim: Frontman::SlimRenderer.instance
       }

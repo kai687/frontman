@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('tapioca', '~> 0.12')
 
   # Frontman dependencies
+  s.add_runtime_dependency('asciidoctor', '~> 2.0')
   s.add_runtime_dependency('better_errors', '~> 2.10')
   s.add_runtime_dependency('binding_of_caller', '~> 1.0')
   s.add_runtime_dependency('bundler')
