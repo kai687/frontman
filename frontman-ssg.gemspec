@@ -29,7 +29,9 @@ Gem::Specification.new do |s|
 
   # Frontman dependencies
   s.add_runtime_dependency('asciidoctor', '~> 2.0')
+  s.add_runtime_dependency('base64')
   s.add_runtime_dependency('better_errors', '~> 2.10')
+  s.add_runtime_dependency('bigdecimal')
   s.add_runtime_dependency('binding_of_caller', '~> 1.0')
   s.add_runtime_dependency('bundler')
   s.add_runtime_dependency('dotenv', '~> 2.8')
@@ -38,6 +40,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('htmlentities', '~> 4.3')
   s.add_runtime_dependency('kramdown', '~> 2.4')
   s.add_runtime_dependency('kramdown-parser-gfm', '~> 1.1')
+  s.add_runtime_dependency('liquid', '~> 5.4')
   s.add_runtime_dependency('listen', '~> 3.8')
   s.add_runtime_dependency('nokogiri', '~> 1.16')
   s.add_runtime_dependency('parallel', '~> 1.24')
