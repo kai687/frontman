@@ -29,13 +29,13 @@ Gem::Specification.new do |s|
 
   # Frontman dependencies
   s.add_runtime_dependency('better_errors', '~> 2.10')
-  s.add_runtime_dependency('binding_of_caller', '~> 0.8')
+  s.add_runtime_dependency('binding_of_caller', '~> 1.0')
   s.add_runtime_dependency('bundler')
   s.add_runtime_dependency('dotenv', '~> 2.8')
   s.add_runtime_dependency('erubis', '~> 2.7')
   s.add_runtime_dependency('haml', '~> 5.0')
   s.add_runtime_dependency('htmlentities', '~> 4.3')
-  s.add_runtime_dependency('kramdown', '~> 2.1')
+  s.add_runtime_dependency('kramdown', '~> 2.4')
   s.add_runtime_dependency('kramdown-parser-gfm', '~> 1.1')
   s.add_runtime_dependency('listen', '~> 3.0')
   s.add_runtime_dependency('nokogiri', '~> 1.10')
