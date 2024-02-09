@@ -43,6 +43,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'sinatra', '~> 2.0'
   s.add_runtime_dependency 'slim', '~> 4.1'
   s.add_runtime_dependency 'sorbet-runtime', '~> 0.5'
-  s.add_runtime_dependency 'thor', '~> 0.20'
+  s.add_runtime_dependency 'thor', '~> 1.2'
   s.add_runtime_dependency 'yaml-front-matter', '0.0.1'
 end
