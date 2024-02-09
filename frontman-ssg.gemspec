@@ -21,9 +21,9 @@ Gem::Specification.new do |s|
 
   # Development tools
   s.add_development_dependency 'rake', '~> 13.1'
-  s.add_development_dependency 'rspec', '~> 3.8'
+  s.add_development_dependency 'rspec', '~> 3.13'
   s.add_development_dependency 'rubocop', '~> 1.60.2'
-  s.add_development_dependency 'simplecov', '~> 0.16'
+  s.add_development_dependency 'simplecov', '~> 0.22'
   s.add_development_dependency 'sorbet', '~> 0.5'
 
   # Frontman dependencies
