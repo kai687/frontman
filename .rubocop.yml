@@ -5,6 +5,7 @@ AllCops:
     - "**/Rakefile"
     - "vendor/**/*"
     - "spec/frontman/mocks/config.rb"
+    - "bin/**"
 
 Style/Lambda:
   Enabled: false

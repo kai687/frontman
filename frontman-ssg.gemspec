@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rubocop', '~> 1.60.2'
   s.add_development_dependency 'simplecov', '~> 0.22'
   s.add_development_dependency 'sorbet', '~> 0.5'
+  s.add_development_dependency 'tapioca', '~> 0.12'
 
   # Frontman dependencies
   s.add_runtime_dependency 'better_errors', '~> 2.6'
