@@ -37,7 +37,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('htmlentities', '~> 4.3')
   s.add_runtime_dependency('kramdown', '~> 2.4')
   s.add_runtime_dependency('kramdown-parser-gfm', '~> 1.1')
-  s.add_runtime_dependency('listen', '~> 3.0')
+  s.add_runtime_dependency('listen', '~> 3.8')
   s.add_runtime_dependency('nokogiri', '~> 1.10')
   s.add_runtime_dependency('parallel', '~> 1.17')
   s.add_runtime_dependency('rouge', '~> 3.16')
