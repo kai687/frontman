@@ -12,8 +12,13 @@ module Frontman
     extend T::Sig
     include Singleton
 
-    attr_accessor :current_page, :current_tree, :view_data, :refresh_data_files,
-                  :asset_pipelines
+    attr_accessor(
+      :current_page,
+      :current_tree,
+      :view_data,
+      :refresh_data_files,
+      :asset_pipelines
+    )
     attr_reader :layouts, :redirects, :assets_manifest, :data_dirs
 
     sig { void }
@@ -41,7 +46,7 @@ module Frontman
 
     sig { params(config: String).void }
     def run(config)
-      instance_eval config
+      instance_eval(config)
     end
 
     sig { params(glob: String, layout_name: T.nilable(String)).void }
@@ -56,6 +61,7 @@ module Frontman
     def register_helpers(helpers)
       helpers.each do |helper|
         require T.must(helper[:path])
+
         singleton_class.send(
           :include,
           Object.const_get(T.must(helper[:name]).to_sym)
@@ -100,7 +106,7 @@ module Frontman
       dirs = dirs.map { |dir| [dir.split('/').last, dir] }.to_h if dirs.is_a?(Array)
 
       dirs.each do |name, dir|
-        define_singleton_method name do
+        define_singleton_method(name) do
           @data_dirs[name] ||= DataStore.new(File.join(Dir.pwd, dir))
         end
       end
@@ -114,11 +120,16 @@ module Frontman
         timing: Symbol,
         mode: Symbol,
         delay: T.any(Integer, String)
-      ).returns(Array)
+      )
+        .returns(Array)
     end
     def add_asset_pipeline(
-      command:, name: nil, source_dir: nil,
-      timing: :before, mode: :all, delay: 0
+      command:,
+      name: nil,
+      source_dir: nil,
+      timing: :before,
+      mode: :all,
+      delay: 0
     )
       @asset_pipelines.push(
         name: name || command,
@@ -136,7 +147,7 @@ module Frontman
         return import_config("#{file_path}.rb")
       end
 
-      run File.read(file_path)
+      run(File.read(file_path))
     end
 
     def method_missing(method_id, *_)

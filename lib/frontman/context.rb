@@ -29,7 +29,8 @@ module Frontman
         key: T.any(String, Symbol),
         content: T.untyped,
         block: T.nilable(T.proc.void)
-      ).returns(T.untyped)
+      )
+        .returns(T.untyped)
     end
     def content_for(key, content = nil, &block)
       content = get_content_buffer(content, &(block if block_given?))
@@ -45,7 +46,8 @@ module Frontman
         key: T.any(String, Symbol),
         content: T.untyped,
         block: T.nilable(T.proc.void)
-      ).returns(T.untyped)
+      )
+        .returns(T.untyped)
     end
     def append_content(key, content = nil, &block)
       content = get_content_buffer(content, &(block if block_given?))

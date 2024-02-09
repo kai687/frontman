@@ -14,14 +14,17 @@ module Frontman
 
       sig { params(path: String).returns(T::Array[T::Hash[Symbol, String]]) }
       def find_helpers_in(path)
-        Dir.entries(path).map do |file|
-          next unless file.end_with?('_helper.rb')
+        Dir
+          .entries(path)
+          .map do |file|
+            next unless file.end_with?('_helper.rb')
 
-          {
-            path: File.join(path, file),
-            name: file.split('_').collect(&:capitalize).join.gsub('.rb', '')
-          }
-        end.compact
+            {
+              path: File.join(path, file),
+              name: file.split('_').collect(&:capitalize).join.gsub('.rb', '')
+            }
+          end
+          .compact
       end
 
       sig { params(app: Frontman::App).returns(Frontman::App) }
