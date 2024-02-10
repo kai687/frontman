@@ -34,11 +34,13 @@ module Frontman
       end
       def from_path(file_path, destination_path = nil, is_page = true)
         destination_path ||= file_path
+        content_dir = Frontman::Config.get(:content_dir,
+                                           fallback: Frontman::Config.defaults[:content_dir])
         file_path = file_path.gsub(%r{^/}, '')
         destination_path = destination_path
                            .gsub(%r{^/}, '')
                            .gsub(%r{/[0-9]+?-}, '/')
-                           .sub(%r{^source/}, '')
+                           .sub(%r{^#{content_dir}/}, '')
 
         # We cache the newly created resource so we avoid loosing the cache
         # if from_path is called again with the same file
