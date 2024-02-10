@@ -42,7 +42,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('kramdown-parser-gfm', '~> 1.1')
   s.add_runtime_dependency('liquid', '~> 5.4')
   s.add_runtime_dependency('listen', '~> 3.8')
-  s.add_runtime_dependency('nokogiri', '~> 1.16')
   s.add_runtime_dependency('parallel', '~> 1.24')
   s.add_runtime_dependency('rackup', '~> 2.1')
   s.add_runtime_dependency('rouge', '~> 4.2')
