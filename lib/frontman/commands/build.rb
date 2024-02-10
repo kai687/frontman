@@ -38,7 +38,8 @@ module Frontman
         File.directory? f
       end
 
-      public_dir = Frontman::Config.get(:public_dir, fallback: 'public/')
+      public_dir = Frontman::Config.get(:public_dir,
+                                        fallback: Frontman::Config.defaults[:public_dir])
       assets_to_build = Dir.glob(File.join(public_dir, '**/*')).reject do |f|
         File.directory? f
       end

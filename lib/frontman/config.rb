@@ -5,12 +5,22 @@ require 'sorbet-runtime'
 
 module Frontman
   class Config
+    @defaults = {
+      config_path: './config.rb',
+      content_dir: 'source',
+      helpers_dir: 'helpers',
+      layout_dir: 'views/layouts',
+      partial_dir: 'views/partials',
+      public_dir: 'public'
+    }
     class << self
       extend T::Sig
+      attr_reader :defaults
 
       sig do
         params(
-          key: T.any(String, Symbol), value: T.untyped
+          key: T.any(String, Symbol),
+          value: T.untyped
         ).returns(T.self_type)
       end
       def set(key, value)
@@ -21,7 +31,8 @@ module Frontman
 
       sig do
         params(
-          key: T.any(String, Symbol), fallback: T.untyped
+          key: T.any(String, Symbol),
+          fallback: T.untyped
         ).returns(T.untyped)
       end
       def get(key, fallback: nil)

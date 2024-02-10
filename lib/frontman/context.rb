@@ -16,7 +16,7 @@ module Frontman
 
     sig { params(layout: String, block: T.proc.void).returns(String) }
     def wrap_layout(layout, &block)
-      layout_dir = Frontman::Config.get(:layout_dir, fallback: 'views/layouts')
+      layout_dir = Frontman::Config.get(:layout_dir, fallback: Frontman::Config.defaults[:layout_dir])
       layout_path = File.join(layout_dir, layout)
 
       content = get_content_buffer(nil, &block)

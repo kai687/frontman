@@ -158,7 +158,7 @@ module Frontman
       layout_from_extra_data = extra_data[:layout] if extra_data.key?(:layout)
       if view_data.layout
         layout_path = File.join(
-          Frontman::Config.get(:layout_dir, fallback: 'views/layouts'),
+          Frontman::Config.get(:layout_dir, fallback: Frontman::Config.defaults[:layout_dir]),
           view_data.layout
         )
       end
