@@ -25,13 +25,13 @@ module Frontman
       def processor_count
         return Parallel.processor_count if parallel?
 
-        Frontman::Config.get(:processor_count, fallback: 1)
+        Frontman::Config.get(:processor_count)
       end
 
       private
 
       def parallel?
-        Frontman::Config.get(:parallel, fallback: true)
+        Frontman::Config.get(:parallel)
       end
 
       def forward(method, collection, *options, &block)

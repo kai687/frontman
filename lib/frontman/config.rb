@@ -8,12 +8,16 @@ module Frontman
     @defaults = {
       config_path: './config.rb',
       content_dir: 'source',
+      fingerprint_assets: false,
       helpers_dir: 'helpers',
+      host: 'localhost',
       layout_dir: 'views/layouts',
+      parallel: true,
       partial_dir: 'views/partials',
-      public_dir: 'public',
       port: 4568,
-      port_retries: 3
+      port_retries: 3,
+      processor_count: 1,
+      public_dir: 'public'
     }
     class << self
       extend T::Sig

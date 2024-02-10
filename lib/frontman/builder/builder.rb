@@ -81,7 +81,7 @@ module Frontman
       def build_from_asset(path, manifest_path)
         target = manifest_path
 
-        if Frontman::Config.get(:fingerprint_assets, fallback: false)
+        if Frontman::Config.get(:fingerprint_assets)
           path_with_digest = add_asset_to_manifest(manifest_path, path)
           target = path_with_digest
         end
