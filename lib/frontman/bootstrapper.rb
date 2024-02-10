@@ -33,8 +33,7 @@ module Frontman
           Dotenv.load
           register_default_helpers(app)
 
-          config = Frontman::Config.get(:config_path,
-                                        fallback: Frontman::Config.defaults[:config_path])
+          config = Frontman::Config.get(:config_path)
           app.run(File.read(config)) if File.exist?(config)
 
           @@bootstrapped = true

@@ -34,8 +34,7 @@ module Frontman
       end
       def from_path(file_path, destination_path = nil, is_page = true)
         destination_path ||= file_path
-        content_dir = Frontman::Config.get(:content_dir,
-                                           fallback: Frontman::Config.defaults[:content_dir])
+        content_dir = Frontman::Config.get(:content_dir)
         file_path = file_path.gsub(%r{^/}, '')
         destination_path = destination_path
                            .gsub(%r{^/}, '')
@@ -160,7 +159,7 @@ module Frontman
       layout_from_extra_data = extra_data[:layout] if extra_data.key?(:layout)
       if view_data.layout
         layout_path = File.join(
-          Frontman::Config.get(:layout_dir, fallback: Frontman::Config.defaults[:layout_dir]),
+          Frontman::Config.get(:layout_dir),
           view_data.layout
         )
       end

@@ -19,8 +19,7 @@ module Frontman
       def initialize
         @emit_events = true
         @build_directory = "#{Dir.pwd}/build/"
-        @public_dir = Frontman::Config.get(:public_dir,
-                                           fallback: Frontman::Config.defaults[:public_dir])
+        @public_dir = Frontman::Config.get(:public_dir)
         @current_build_files = []
       end
 

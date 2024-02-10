@@ -16,9 +16,7 @@ module RenderHelper
       .returns(String)
   end
   def partial(template, data = {})
-    partial_dir = Frontman::Config.get(
-      :partial_dir, fallback: Frontman::Config.defaults[:partial_dir]
-    )
+    partial_dir = Frontman::Config.get(:partial_dir)
     r = Frontman::Resource.from_path(
       File.join(partial_dir, template), nil, false
     )

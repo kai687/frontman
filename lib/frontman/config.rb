@@ -37,7 +37,12 @@ module Frontman
       end
       def get(key, fallback: nil)
         @@values ||= {}
-        @@values.key?(key.to_sym) ? @@values[key.to_sym] : fallback
+        return @@values[key.to_sym] if @@values.key?(key.to_sym)
+        if fallback.nil? && Frontman::Config.defaults.key?(key.to_sym)
+          return Frontman::Config.defaults[key.to_sym]
+        end
+
+        fallback
       end
 
       sig { params(key: T.any(String, Symbol)).returns(T.self_type) }

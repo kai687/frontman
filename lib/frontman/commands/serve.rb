@@ -27,14 +27,12 @@ module Frontman
       )
       processes = assets_pipeline.run_in_background!(:before)
 
-      helpers_dir = Frontman::Config.get(:helpers_dir,
-                                         fallback: Frontman::Config.defaults[:helpers_dir])
-      content_dir = Frontman::Config.get(:content_dir,
-                                         fallback: Frontman::Config.defaults[:content_dir])
+      helpers_dir = Frontman::Config.get(:helpers_dir)
+      content_dir = Frontman::Config.get(:content_dir)
       listen_to_dirs = Frontman::Config.get(:observe_dirs, fallback:
         [
-          Frontman::Config.get(:layout_dir, fallback: Frontman::Config.defaults[:layout_dir]),
-          Frontman::Config.get(:partial_dir, fallback: Frontman::Config.defaults[:partial_dir]),
+          Frontman::Config.get(:layout_dir),
+          Frontman::Config.get(:partial_dir),
           content_dir,
           helpers_dir
         ]).filter { |dir| Dir.exist?(dir) }
@@ -74,9 +72,7 @@ module Frontman
 
       listener.start
 
-      FrontmanServer.set :public_folder, Frontman::Config.get(
-        :public_dir, fallback: Frontman::Config.defaults[:public_dir]
-      )
+      FrontmanServer.set :public_folder, Frontman::Config.get(:public_dir)
 
       port = Frontman::Config.get(:port, fallback: 4568)
       num_retries = Frontman::Config.get(:port_retries, fallback: 3)
