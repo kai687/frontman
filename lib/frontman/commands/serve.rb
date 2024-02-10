@@ -74,8 +74,8 @@ module Frontman
 
       FrontmanServer.set :public_folder, Frontman::Config.get(:public_dir)
 
-      port = Frontman::Config.get(:port, fallback: 4568)
-      num_retries = Frontman::Config.get(:port_retries, fallback: 3)
+      port = Frontman::Config.get(:port)
+      num_retries = Frontman::Config.get(:port_retries)
 
       port_retry_strategy = Frontman::Config.get(:port_retry_strategy, fallback: ->(p) {
         port_in_use = false

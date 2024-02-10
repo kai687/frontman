@@ -23,7 +23,15 @@ describe Frontman::Config do
     expect(Frontman::Config.get('foo', fallback: 'baz')).to eq nil
   end
 
-  it 'should return the default value if the key is not set' do
+  it 'should return the default value if no fallback is provided' do
+    expect(Frontman::Config.get(:layout_dir)).to eq 'views/layouts'
+  end
+
+  it 'should return the fallback value even if a default value exists' do
+    expect(Frontman::Config.get(:layout_dir, fallback: 'foo')).to eq 'foo'
+  end
+
+  it 'should return the fallback value if the key is not set' do
     expect(Frontman::Config.get('foo', fallback: 'baz')).to eq 'baz'
   end
 

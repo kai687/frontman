@@ -11,7 +11,9 @@ module Frontman
       helpers_dir: 'helpers',
       layout_dir: 'views/layouts',
       partial_dir: 'views/partials',
-      public_dir: 'public'
+      public_dir: 'public',
+      port: 4568,
+      port_retries: 3
     }
     class << self
       extend T::Sig
