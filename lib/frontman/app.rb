@@ -1,4 +1,4 @@
-# typed: ignore
+# typed: false
 # frozen_string_literal: false
 
 require 'frontman/sitemap_tree'
