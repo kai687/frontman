@@ -6,6 +6,7 @@ require 'sorbet-runtime'
 module Frontman
   class Config
     @defaults = {
+      build_dir: 'build',
       config_path: './config.rb',
       content_dir: 'source',
       fingerprint_assets: false,

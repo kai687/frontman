@@ -5,7 +5,6 @@ require 'frontman/renderers/renderer_resolver'
 require 'frontman/custom_struct'
 require 'frontman/context'
 require 'frontman/app'
-require 'frontman/sitemap_tree'
 require 'sorbet-runtime'
 require 'yaml/front-matter'
 

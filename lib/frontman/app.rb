@@ -4,6 +4,7 @@
 require 'frontman/sitemap_tree'
 require 'frontman/data_store'
 require 'frontman/errors'
+require 'frontman/helpers/url_helper'
 require 'singleton'
 require 'sorbet-runtime'
 
@@ -11,7 +12,6 @@ module Frontman
   class App
     extend T::Sig
     include Singleton
-    include LinkHelper
     include UrlHelper
 
     attr_accessor(
