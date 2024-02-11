@@ -3,17 +3,3 @@
 # Please instead update this file by running `bin/tapioca todo`.
 
 # typed: false
-
-module ::Sinatra::Base; end
-module Frontman::Bootstrapper; end
-module Frontman::CLI::Listen; end
-module Frontman::ErbRenderer::Erubis::Eruby; end
-module Frontman::HamlRenderer::Haml::Engine; end
-module Frontman::HamlRenderer::Haml::Options; end
-module Frontman::MarkdownRenderer::Kramdown::Document; end
-module Frontman::SlimRenderer::Slim::Engine; end
-module Frontman::SlimRenderer::Slim::Template; end
-module FrontmanServer::BetterErrors; end
-module FrontmanServer::BetterErrors::Middleware; end
-module LinkHelper::HTMLEntities; end
-module Psych::FrontMatter; end

@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # frozen_string_literal: false
 
 require 'frontman/sitemap_tree'
@@ -11,6 +11,8 @@ module Frontman
   class App
     extend T::Sig
     include Singleton
+    include LinkHelper
+    include UrlHelper
 
     attr_accessor(
       :current_page,

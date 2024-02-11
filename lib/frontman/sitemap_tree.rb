@@ -2,13 +2,18 @@
 # frozen_string_literal: true
 
 require 'frontman/errors'
+require 'sorbet-runtime'
 
 module Frontman
   class SitemapTree
+    extend T::Sig
+
     attr_reader :path, :children, :url_part
     attr_accessor :parent, :position, :resource, :url
 
     class << self
+      extend T::Sig
+
       def resources
         @@resources ||= []
       end
@@ -21,6 +26,7 @@ module Frontman
         proxy_resources[format_url(template)] || []
       end
 
+      sig { params(url: String).returns(String) }
       def format_url(url)
         url.chomp('index.html').gsub('.html', '')
       end
@@ -70,6 +76,7 @@ module Frontman
       @url = nil
     end
 
+    sig { params(url: String).returns(String) }
     def format_url(url)
       url.chomp('index.html').gsub('.html', '')
     end
@@ -92,7 +99,7 @@ module Frontman
       ancestors = [self]
       ancestor = self
 
-      while !ancestor.nil? && (ancestor.url_part != part)
+      while ancestor.url_part != part
         ancestor = ancestor.parent
         ancestors.unshift(ancestor)
       end
@@ -101,7 +108,7 @@ module Frontman
     end
 
     def flatten(take = false)
-      resources = []
+      resources = T.let([], T::Array[T.untyped])
 
       resources.push(self) if take && @resource && @children.empty?
 
@@ -113,7 +120,7 @@ module Frontman
     end
 
     def get_all_pages(options = {})
-      resources = []
+      resources = T.let([], T::Array[T.untyped])
       resources.push(self) if @resource
 
       @children.each do |child|
@@ -166,6 +173,7 @@ module Frontman
       children.select(&:resource)
     end
 
+    sig { returns(T::Boolean) }
     def folder?
       !children.empty?
     end
@@ -174,6 +182,7 @@ module Frontman
       children.select { |c| @@languages.include?(c.url_part) }
     end
 
+    sig { params(space: Integer).void }
     def pretty_print(space)
       spaces = space >= 0 ? ' ' * space : ''
 
@@ -190,6 +199,7 @@ module Frontman
       @@urls
     end
 
+    sig { returns(String) }
     def inspect
       "SitemapTree: #{@resource ? @resource.destination_path : @url_part}"
     end
