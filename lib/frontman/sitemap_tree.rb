@@ -76,7 +76,6 @@ module Frontman
       @url = nil
     end
 
-    sig { params(url: String).returns(String) }
     def format_url(url)
       url.chomp('index.html').gsub('.html', '')
     end
