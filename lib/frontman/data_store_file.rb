@@ -1,6 +1,7 @@
 # typed: true
-# frozen_string_literal: false
+# frozen_string_literal: true
 
+require 'date'
 require 'pathname'
 require 'sorbet-runtime'
 require 'yaml'
@@ -24,11 +25,16 @@ module Frontman
       @file_name = file_name
       @base_file_name = base_file_name
       @parent = parent
-      @data = (YAML.load_file(@path) || {}).to_ostruct
+      @data = load_data(@path)
 
       @@i ||= 0
       @position = @@i
       @@i += 1
+    end
+
+    sig { params(path: String).returns(T.untyped) }
+    def load_data(path)
+      (YAML.load_file(path, permitted_classes: [Date]) || {}).to_ostruct
     end
 
     def method_missing(method_id, *arguments, &block)
@@ -48,8 +54,7 @@ module Frontman
     def refresh
       return unless Frontman::App.instance.refresh_data_files
 
-      data = YAML.load_file(@path) || {}
-      @data = data.to_ostruct
+      @data = load_data(@path)
     end
 
     sig { returns(String) }
