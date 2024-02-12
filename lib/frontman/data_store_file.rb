@@ -32,15 +32,23 @@ module Frontman
       @@i += 1
     end
 
-    sig { params(path: String).returns(T.untyped) }
+    sig { params(path: String).returns(CustomStruct) }
     def load_data(path)
       (YAML.load_file(path, permitted_classes: [Date]) || {}).to_ostruct
     end
 
+    sig do
+      params(
+        method_id: Symbol,
+        arguments: T::Array[Object],
+        block: T.nilable(Proc)
+      ).returns(T.untyped)
+    end
     def method_missing(method_id, *arguments, &block)
       @data.public_send(method_id, *arguments, &block)
     end
 
+    sig { params(method_id: Symbol, _: T.untyped).returns(T::Boolean) }
     def respond_to_missing?(method_id, _)
       @data.respond_to? method_id
     end
