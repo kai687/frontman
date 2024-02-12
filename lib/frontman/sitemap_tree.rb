@@ -98,7 +98,7 @@ module Frontman
       ancestors = [self]
       ancestor = self
 
-      while ancestor.url_part != part
+      while !ancestor.nil? && (ancestor.url_part != part)
         ancestor = ancestor.parent
         ancestors.unshift(ancestor)
       end
