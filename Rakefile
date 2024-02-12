@@ -18,7 +18,7 @@ RSpec::Core::RakeTask.new(:spec)
 
 RuboCop::RakeTask.new(:rubocop)
 
-task default: %i[spec rubocop]
+task default: %i[spec rubocop tc]
 
 desc 'Type check with sorbet (via spoom)'
 task :tc do
