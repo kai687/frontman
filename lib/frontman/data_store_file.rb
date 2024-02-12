@@ -32,9 +32,9 @@ module Frontman
       @@i += 1
     end
 
-    sig { params(path: String).returns(CustomStruct) }
+    sig { params(path: String).returns(T.any(CustomStruct, T::Array[T.untyped])) }
     def load_data(path)
-      (YAML.load_file(path, permitted_classes: [Date]) || {}).to_ostruct
+      (YAML.load_file(path, permitted_classes: [Date], aliases: true) || {}).to_ostruct
     end
 
     sig do
