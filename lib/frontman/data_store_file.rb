@@ -40,7 +40,7 @@ module Frontman
     sig do
       params(
         method_id: Symbol,
-        arguments: T::Array[Object],
+        arguments: T.untyped,
         block: T.nilable(Proc)
       ).returns(T.untyped)
     end
