@@ -1,6 +1,5 @@
-# frozen_string_literal: true
-
 # typed: true
+# frozen_string_literal: true
 
 require 'dotenv'
 require 'sorbet-runtime'

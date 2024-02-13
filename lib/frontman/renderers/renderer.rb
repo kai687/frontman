@@ -12,6 +12,14 @@ module Frontman
       raise('Should be implemented in child classes')
     end
 
+    sig do
+      params(
+        compiled: T.untyped,
+        content: T.untyped,
+        scope: Frontman::Context,
+        data: T.untyped
+      ).returns(T.untyped)
+    end
     def render(compiled, content, scope, data)
       Frontman::App.instance.view_data.push(data)
       content = render_content(compiled, content, scope, data)
