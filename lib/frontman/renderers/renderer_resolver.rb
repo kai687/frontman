@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 require 'frontman/renderers/renderer'
-require 'frontman/renderers/asciidoc_renderer'
 require 'frontman/renderers/erb_renderer'
 require 'frontman/renderers/haml_renderer'
 require 'frontman/renderers/markdown_renderer'
@@ -23,12 +22,16 @@ module Frontman
     sig { returns(T::Hash[Symbol, Frontman::Renderer]) }
     def all_renderers
       @all_renderers ||= {
-        adoc: Frontman::AsciidocRenderer.instance,
         erb: Frontman::ErbRenderer.instance,
         haml: Frontman::HamlRenderer.instance,
         md: Frontman::MarkdownRenderer.instance,
         slim: Frontman::SlimRenderer.instance
       }
+    end
+
+    sig { params(extension: String, renderer: T.untyped).void }
+    def add_renderer(extension, renderer)
+      all_renderers[extension.to_sym] = renderer.instance
     end
 
     sig { params(extension: String).returns(T::Boolean) }

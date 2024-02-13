@@ -28,7 +28,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency('tapioca', '~> 0.12')
 
   # Frontman dependencies
-  s.add_runtime_dependency('asciidoctor', '~> 2.0')
   s.add_runtime_dependency('base64')
   s.add_runtime_dependency('better_errors', '~> 2.6')
   s.add_runtime_dependency('bigdecimal')

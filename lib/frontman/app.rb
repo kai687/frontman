@@ -81,6 +81,11 @@ module Frontman
       )
     end
 
+    sig { params(extension: String, renderer: T.untyped).void }
+    def register_custom_renderer(extension, renderer)
+      Frontman::RendererResolver.instance.add_renderer(extension, renderer)
+    end
+
     sig { params(from: String, to: String).returns(String) }
     def add_redirect(from, to)
       from = format_url(from)
