@@ -7,7 +7,7 @@ module Frontman
   class CLI < Thor
     option :template
     option :force, type: :boolean
-    desc 'init', 'Bootstrap a new Frontman project'
+    desc 'init', 'Create a new Frontman project'
 
     def self.exit_on_failure?
       true
@@ -21,7 +21,7 @@ module Frontman
       target_dir = File.join(Dir.pwd, path == '.' ? '' : path)
 
       unless allowed_to_modify_dir?(target_dir)
-        say('Not bootstrapping new Frontman project')
+        say('Not creating a new Frontman project')
         return
       end
 

@@ -16,7 +16,7 @@ require 'frontman/resource'
 
 module Frontman
   class CLI < Thor
-    desc 'serve', 'Serve your application'
+    desc 'serve', 'Start a local preview server'
     def serve
       Frontman::Config.set(:mode, 'serve')
       app = Frontman::App.instance

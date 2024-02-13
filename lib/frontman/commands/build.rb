@@ -15,7 +15,7 @@ module Frontman
   class CLI < Thor
     option :parallel, type: :boolean
     option :verbose, type: :boolean
-    desc 'build', 'Generate the HTML for your website'
+    desc 'build', 'Build the static website'
     def build
       Frontman::Config.set(:mode, 'build')
       Frontman::Bootstrapper.bootstrap_app(Frontman::App.instance)
