@@ -5,7 +5,6 @@ require 'frontman/renderers/renderer'
 require 'frontman/renderers/asciidoc_renderer'
 require 'frontman/renderers/erb_renderer'
 require 'frontman/renderers/haml_renderer'
-require 'frontman/renderers/liquid_renderer'
 require 'frontman/renderers/markdown_renderer'
 require 'frontman/renderers/slim_renderer'
 require 'singleton'
@@ -27,7 +26,6 @@ module Frontman
         adoc: Frontman::AsciidocRenderer.instance,
         erb: Frontman::ErbRenderer.instance,
         haml: Frontman::HamlRenderer.instance,
-        liquid: Frontman::LiquidRenderer.instance,
         md: Frontman::MarkdownRenderer.instance,
         slim: Frontman::SlimRenderer.instance
       }

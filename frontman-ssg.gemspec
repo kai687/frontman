@@ -41,7 +41,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('htmlentities', '~> 4.3')
   s.add_runtime_dependency('kramdown', '~> 2.1')
   s.add_runtime_dependency('kramdown-parser-gfm', '~> 1.1')
-  s.add_runtime_dependency('liquid', '~> 5.4')
   s.add_runtime_dependency('listen', '~> 3.0')
   s.add_runtime_dependency('parallel', '~> 1.17')
   s.add_runtime_dependency('rack-livereload', '~> 0.5.1')
