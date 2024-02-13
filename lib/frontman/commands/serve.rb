@@ -5,11 +5,13 @@ require 'thor'
 require 'sinatra/base'
 require 'better_errors'
 require 'listen'
+require 'rack/livereload'
 require 'frontman/app'
 require 'frontman/bootstrapper'
 require 'frontman/builder/asset_pipeline'
 require 'frontman/config'
 require 'frontman/errors'
+require 'frontman/livereload'
 require 'frontman/resource'
 
 module Frontman
@@ -19,6 +21,9 @@ module Frontman
       Frontman::Config.set(:mode, 'serve')
       app = Frontman::App.instance
       Frontman::Bootstrapper.bootstrap_app(app)
+
+      # Launch a websocket server for live reloading
+      wss = Frontman::LiveReload::Server.new
 
       assets_pipeline = Frontman::Builder::AssetPipeline.new(
         app
@@ -63,6 +68,7 @@ module Frontman
             elsif resource_path.end_with?('.rb')
               load("./#{resource_path}")
             end
+            wss.reload_client
           rescue Error
             # We ignore all errors to prevent the listener from crashing.
             # Errors will be surfaced by the server instead.
@@ -118,6 +124,8 @@ class FrontmanServer < Sinatra::Base
       # Remove logger for WebRick, we have the one of sinatra already
       Logger: Rack::NullLogger.new(self)
 
+  use Rack::LiveReload, host: Frontman::LiveReload.wss_host, port: Frontman::LiveReload.wss_port,
+                        no_swf: true, source: :vendored
   use BetterErrors::Middleware
   BetterErrors.application_root = Dir.pwd
 

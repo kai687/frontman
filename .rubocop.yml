@@ -36,6 +36,7 @@ Metrics/MethodLength:
     - "lib/frontman/data_store.rb"
     - "lib/frontman/builder/builder.rb"
     - "lib/frontman/commands/**/*"
+    - "lib/frontman/livereload.rb"
     - "lib/frontman/resource.rb"
     - "lib/frontman/context.rb"
     - "lib/frontman/helpers/render_helper.rb"
@@ -81,6 +82,7 @@ Metrics/CyclomaticComplexity:
 
 Metrics/BlockLength:
   Exclude:
+    - "lib/frontman/commands/serve.rb"
     - "spec/**/*"
     - "*.gemspec"
 
