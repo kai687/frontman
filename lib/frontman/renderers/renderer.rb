@@ -1,10 +1,11 @@
-# typed: false
+# typed: true
 # frozen_string_literal: true
 
 require 'singleton'
 
 module Frontman
   class Renderer
+    extend T::Sig
     include Singleton
 
     def compile(_layout)

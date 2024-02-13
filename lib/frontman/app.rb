@@ -1,9 +1,10 @@
-# typed: ignore
+# typed: true
 # frozen_string_literal: false
 
 require 'frontman/sitemap_tree'
 require 'frontman/data_store'
 require 'frontman/errors'
+require 'frontman/helpers/url_helper'
 require 'singleton'
 require 'sorbet-runtime'
 
@@ -11,9 +12,15 @@ module Frontman
   class App
     extend T::Sig
     include Singleton
+    include UrlHelper
 
-    attr_accessor :current_page, :current_tree, :view_data, :refresh_data_files,
-                  :asset_pipelines
+    attr_accessor(
+      :current_page,
+      :current_tree,
+      :view_data,
+      :refresh_data_files,
+      :asset_pipelines
+    )
     attr_reader :layouts, :redirects, :assets_manifest, :data_dirs
 
     sig { void }
@@ -41,12 +48,12 @@ module Frontman
 
     sig { params(config: String).void }
     def run(config)
-      instance_eval config
+      instance_eval(config)
     end
 
     sig { params(glob: String, layout_name: T.nilable(String)).void }
     def register_layout(glob, layout_name)
-      layout_dir = Frontman::Config.get(:layout_dir, fallback: 'views/layouts')
+      layout_dir = Frontman::Config.get(:layout_dir)
       layout = glob, layout_name.nil? ? nil : File.join(layout_dir, layout_name)
 
       @layouts.push(layout)
@@ -56,6 +63,7 @@ module Frontman
     def register_helpers(helpers)
       helpers.each do |helper|
         require T.must(helper[:path])
+
         singleton_class.send(
           :include,
           Object.const_get(T.must(helper[:name]).to_sym)
@@ -92,7 +100,7 @@ module Frontman
 
     sig { params(key: String, value: String).returns(String) }
     def add_to_manifest(key, value)
-      @assets_manifest[key] = '/' + value.sub(%r{^/}, '')
+      @assets_manifest[key] = "/#{value.sub(%r{^/}, '')}"
     end
 
     sig { params(dirs: T.any(Array, Hash)).void }
@@ -100,7 +108,7 @@ module Frontman
       dirs = dirs.map { |dir| [dir.split('/').last, dir] }.to_h if dirs.is_a?(Array)
 
       dirs.each do |name, dir|
-        define_singleton_method name do
+        define_singleton_method(name) do
           @data_dirs[name] ||= DataStore.new(File.join(Dir.pwd, dir))
         end
       end
@@ -114,19 +122,24 @@ module Frontman
         timing: Symbol,
         mode: Symbol,
         delay: T.any(Integer, String)
-      ).returns(Array)
+      )
+        .returns(Array)
     end
     def add_asset_pipeline(
-      command:, name: nil, source_dir: nil,
-      timing: :before, mode: :all, delay: 0
+      command:,
+      name: nil,
+      source_dir: nil,
+      timing: :before,
+      mode: :all,
+      delay: 0
     )
       @asset_pipelines.push(
         name: name || command,
-        source_dir: source_dir,
-        command: command,
+        source_dir:,
+        command:,
         timing: timing == :after ? :after : :before,
-        mode: mode,
-        delay: delay
+        mode:,
+        delay:
       )
     end
 
@@ -136,7 +149,7 @@ module Frontman
         return import_config("#{file_path}.rb")
       end
 
-      run File.read(file_path)
+      run(File.read(file_path))
     end
 
     def method_missing(method_id, *_)

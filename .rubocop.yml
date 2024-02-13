@@ -1,97 +1,107 @@
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.3
+  SuggestExtensions: false
   Exclude:
-    - '**/Rakefile'
-    - 'vendor/**/*'
+    - "**/Rakefile"
+    - "vendor/**/*"
+    - "spec/frontman/mocks/config.rb"
+    - "bin/**"
 
 Style/Lambda:
   Enabled: false
 
+Style/OptionalBooleanParameter:
+  Exclude:
+    - "lib/frontman/resource.rb"
+    - "lib/frontman/sitemap_tree.rb"
+
 Gemspec/RequiredRubyVersion:
   Exclude:
-    - 'frontman-ssg.gemspec'
+    - "frontman-ssg.gemspec"
 
 Style/Documentation:
   Exclude:
-    - 'spec/**/*'
-    - 'test/**/*'
-    - 'lib/**/*'
-    - 'project-templates/**/*'
+    - "spec/**/*"
+    - "test/**/*"
+    - "lib/**/*"
+    - "project-templates/**/*"
 
 Lint/MissingSuper:
   Exclude:
-    - 'lib/**/*'
+    - "lib/**/*"
 
 Metrics/MethodLength:
   Exclude:
-    - 'lib/frontman/sitemap_tree.rb'
-    - 'lib/frontman/data_store.rb'
-    - 'lib/frontman/builder/builder.rb'
-    - 'lib/frontman/commands/**/*'
-    - 'lib/frontman/resource.rb'
-    - 'lib/frontman/context.rb'
-    - 'lib/frontman/helpers/render_helper.rb'
+    - "lib/frontman/sitemap_tree.rb"
+    - "lib/frontman/data_store.rb"
+    - "lib/frontman/builder/builder.rb"
+    - "lib/frontman/commands/**/*"
+    - "lib/frontman/livereload.rb"
+    - "lib/frontman/resource.rb"
+    - "lib/frontman/context.rb"
+    - "lib/frontman/helpers/render_helper.rb"
 
 Metrics/AbcSize:
   Exclude:
-    - 'lib/frontman/context.rb'
-    - 'lib/frontman/sitemap_tree.rb'
-    - 'lib/frontman/data_store.rb'
-    - 'lib/frontman/builder/statistics_collector.rb'
-    - 'lib/frontman/commands/**/*'
-    - 'lib/frontman/resource.rb'
+    - "lib/frontman/context.rb"
+    - "lib/frontman/sitemap_tree.rb"
+    - "lib/frontman/data_store.rb"
+    - "lib/frontman/builder/statistics_collector.rb"
+    - "lib/frontman/commands/**/*"
+    - "lib/frontman/resource.rb"
 
 Style/ClassVars:
   Exclude:
-    - 'lib/frontman/sitemap_tree.rb'
-    - 'lib/frontman/bootstrapper.rb'
-    - 'lib/frontman/config.rb'
-    - 'lib/frontman/resource.rb'
-    - 'lib/frontman/data_store_file.rb'
-    - 'spec/frontman/sitemap_tree_spec.rb'
+    - "lib/frontman/sitemap_tree.rb"
+    - "lib/frontman/bootstrapper.rb"
+    - "lib/frontman/config.rb"
+    - "lib/frontman/resource.rb"
+    - "lib/frontman/data_store_file.rb"
+    - "spec/frontman/sitemap_tree_spec.rb"
 
 Metrics/ClassLength:
   Exclude:
-    - 'lib/frontman/app.rb'
-    - 'lib/frontman/builder/builder.rb'
-    - 'lib/frontman/resource.rb'
-    - 'lib/frontman/sitemap_tree.rb'
+    - "lib/frontman/app.rb"
+    - "lib/frontman/builder/builder.rb"
+    - "lib/frontman/resource.rb"
+    - "lib/frontman/sitemap_tree.rb"
 
 Style/ConditionalAssignment:
   Exclude:
-    - 'lib/frontman/builder/builder.rb'
+    - "lib/frontman/builder/builder.rb"
 
 Metrics/PerceivedComplexity:
   Exclude:
-    - 'lib/frontman/resource.rb'
-    - 'lib/frontman/commands/serve.rb'
+    - "lib/frontman/resource.rb"
+    - "lib/frontman/commands/serve.rb"
 
 Metrics/CyclomaticComplexity:
   Exclude:
-    - 'lib/frontman/resource.rb'
-    - 'lib/frontman/commands/serve.rb'
+    - "lib/frontman/resource.rb"
+    - "lib/frontman/commands/serve.rb"
 
 Metrics/BlockLength:
   Exclude:
-    - 'spec/**/*'
-    - '*.gemspec'
+    - "lib/frontman/commands/serve.rb"
+    - "spec/**/*"
+    - "*.gemspec"
 
 Layout/LineLength:
   Max: 100
   Exclude:
-    - 'frontman-ssg.gemspec'
-    - 'spec/**/*'
-    - 'lib/frontman/context.rb'
+    - "frontman-ssg.gemspec"
+    - "spec/**/*"
+    - "lib/frontman/context.rb"
 
 Naming/FileName:
   Exclude:
-    - 'spec/**/*'
-    - 'lib/frontman/helpers/**/*'
+    - "spec/**/*"
+    - "lib/frontman/helpers/**/*"
 
 Metrics/ParameterLists:
   Exclude:
-    - 'lib/frontman/app.rb'
+    - "lib/frontman/app.rb"
 
 Lint/SuppressedException:
   Exclude:
-    - 'lib/frontman/commands/serve.rb'
+    - "lib/frontman/commands/serve.rb"

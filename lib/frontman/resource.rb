@@ -5,7 +5,6 @@ require 'frontman/renderers/renderer_resolver'
 require 'frontman/custom_struct'
 require 'frontman/context'
 require 'frontman/app'
-require 'frontman/sitemap_tree'
 require 'sorbet-runtime'
 require 'yaml/front-matter'
 
@@ -29,21 +28,26 @@ module Frontman
           file_path: String,
           destination_path: T.nilable(String),
           is_page: T::Boolean
-        ).returns(Resource)
+        )
+          .returns(Resource)
       end
       def from_path(file_path, destination_path = nil, is_page = true)
         destination_path ||= file_path
+        content_dir = Frontman::Config.get(:content_dir)
         file_path = file_path.gsub(%r{^/}, '')
-        destination_path = destination_path.gsub(%r{^/}, '')
-                                           .gsub(%r{/[0-9]+?-}, '/')
-                                           .sub(%r{^source/}, '')
+        destination_path = destination_path
+                           .gsub(%r{^/}, '')
+                           .gsub(%r{/[0-9]+?-}, '/')
+                           .sub(%r{^#{content_dir}/}, '')
 
         # We cache the newly created resource so we avoid loosing the cache
         # if from_path is called again with the same file
         # This is especially important for perf in case of layouts and templates
         @@resources ||= {}
         @@resources[destination_path] ||= new(
-          file_path, destination_path, is_page
+          file_path,
+          destination_path,
+          is_page
         )
       end
     end
@@ -52,10 +56,11 @@ module Frontman
     def strip_extensions(path)
       split = path.split('/')
       without_extension = T.must(split.last).split('.')[0]
-      path_without_extensions = split.first(split.length - 1)
-                                     .push(T.must(without_extension))
-                                     .join('/')
-      extensions = T.must(split.last).split('.')[1..-1]
+      path_without_extensions = split
+                                .first(split.length - 1)
+                                .push(T.must(without_extension))
+                                .join('/')
+      extensions = T.must(split.last).split('.')[1..]
       [path_without_extensions, extensions]
     end
 
@@ -71,24 +76,25 @@ module Frontman
       @extension = dest_file_extensions.first
 
       @destination_path = if (@extension == 'html' || extension.nil?) && !is_index_page
-                            destination_without_extension + '/index.html'
+                            "#{destination_without_extension}/index.html"
                           else
-                            destination_without_extension + '.' + @extension
+                            "#{destination_without_extension}.#{@extension}"
                           end
-      @path = "/#{@destination_path.chomp('index.html')}"
-              .gsub('//', '/')
+
+      @path = "/#{@destination_path.chomp('index.html')}".gsub('//', '/')
     end
 
     sig { void }
     def parse_data_file
-      data_file = @file_path_without_extension + '.yml'
+      data_file = "#{@file_path_without_extension}.yml"
       return unless File.exist?(data_file)
 
       begin
         data = YAML.safe_load(File.read(data_file)).to_ostruct
       rescue Psych::SyntaxError => e
-        raise("#{e} - #{data_file}")
+        raise "#{e} - #{data_file}"
       end
+
       @data[:yml] = data
     end
 
@@ -96,7 +102,8 @@ module Frontman
       params(
         parse_parent: T::Boolean,
         data: T.any(NilClass, Hash, CustomStruct, OpenStruct)
-      ).void
+      )
+        .void
     end
     def parse_resource(parse_parent = false, data = nil)
       @rendered_content = nil
@@ -140,7 +147,8 @@ module Frontman
       params(
         content_for_layout: T.nilable(String),
         extra_data: T.any(Hash, CustomStruct)
-      ).returns(String)
+      )
+        .returns(String)
     end
     def render(content_for_layout = nil, extra_data = {})
       view_data = data.to_h.merge(extra_data).to_ostruct
@@ -150,7 +158,7 @@ module Frontman
       layout_from_extra_data = extra_data[:layout] if extra_data.key?(:layout)
       if view_data.layout
         layout_path = File.join(
-          Frontman::Config.get(:layout_dir, fallback: 'views/layouts'),
+          Frontman::Config.get(:layout_dir),
           view_data.layout
         )
       end
@@ -177,7 +185,10 @@ module Frontman
         # If we manage to compile the template (only 1 renderer)
         # we render from the compiled template
         content = @renderer.render(
-          @compiled, content_for_layout, context, view_data
+          @compiled,
+          content_for_layout,
+          context,
+          view_data
         )
       else
         # We loop over each renderer (infered from extensions of the file)
@@ -186,7 +197,10 @@ module Frontman
         @renderers.each do |renderer|
           compiled = renderer.compile(content)
           content = renderer.render(
-            compiled, content_for_layout, context, view_data
+            compiled,
+            content_for_layout,
+            context,
+            view_data
           )
         end
       end
@@ -246,7 +260,8 @@ module Frontman
         file_path: String,
         destination_path: String,
         is_page: T::Boolean
-      ).void
+      )
+        .void
     end
     def initialize(file_path, destination_path, is_page)
       raise "File does not exists: #{file_path}" unless File.exist?(file_path)
@@ -267,9 +282,11 @@ module Frontman
         @file_path
       )
       rendering_extensions.reverse!
-      @renderers = rendering_extensions.map do |ext|
+      @renderers = rendering_extensions
+                   .map do |ext|
         Frontman::RendererResolver.instance.get_renderer(ext)
-      end.compact
+      end
+        .compact
     end
   end
 end

@@ -8,6 +8,11 @@ module Frontman
     option :template
     option :force, type: :boolean
     desc 'init', 'Bootstrap a new Frontman project'
+
+    def self.exit_on_failure?
+      true
+    end
+
     def init(path)
       template = options[:template] || 'default'
 
@@ -16,7 +21,7 @@ module Frontman
       target_dir = File.join(Dir.pwd, path == '.' ? '' : path)
 
       unless allowed_to_modify_dir?(target_dir)
-        say 'Not bootstrapping new Frontman project'
+        say('Not bootstrapping new Frontman project')
         return
       end
 
@@ -25,7 +30,7 @@ module Frontman
       command = path == '.' ? '' : "cd #{path} && "
       command += 'bundle exec frontman serve'
 
-      say "Your project is ready. Run `#{command}` and start developing!"
+      say("Your project is ready. Run `#{command}` and start developing!")
     end
 
     private
@@ -41,8 +46,8 @@ module Frontman
       return true if options[:force]
       return true if !Dir.exist?(dir) || Dir.empty?(dir)
 
-      say 'This folder already contains files. '
-      say 'Initializing a new Frontman project here may override these files.'
+      say('This folder already contains files. ')
+      say('Initializing a new Frontman project here may override these files.')
       answer = ask('Are you sure you want to continue? [y/N]')
 
       answer.to_s.downcase == 'y'

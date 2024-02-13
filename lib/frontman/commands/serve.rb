@@ -5,11 +5,13 @@ require 'thor'
 require 'sinatra/base'
 require 'better_errors'
 require 'listen'
+require 'rack/livereload'
 require 'frontman/app'
 require 'frontman/bootstrapper'
 require 'frontman/builder/asset_pipeline'
 require 'frontman/config'
 require 'frontman/errors'
+require 'frontman/livereload'
 require 'frontman/resource'
 
 module Frontman
@@ -20,6 +22,9 @@ module Frontman
       app = Frontman::App.instance
       Frontman::Bootstrapper.bootstrap_app(app)
 
+      # Launch a websocket server for live reloading
+      wss = Frontman::LiveReload::Server.new
+
       assets_pipeline = Frontman::Builder::AssetPipeline.new(
         app
           .asset_pipelines
@@ -27,12 +32,12 @@ module Frontman
       )
       processes = assets_pipeline.run_in_background!(:before)
 
-      helpers_dir = Frontman::Config.get(:helpers_dir, fallback: 'helpers')
-      content_dir = Frontman::Config.get(:content_dir, fallback: 'source/')
+      helpers_dir = Frontman::Config.get(:helpers_dir)
+      content_dir = Frontman::Config.get(:content_dir)
       listen_to_dirs = Frontman::Config.get(:observe_dirs, fallback:
         [
-          Frontman::Config.get(:layout_dir, fallback: 'views/layouts'),
-          Frontman::Config.get(:partial_dir, fallback: 'views/partials'),
+          Frontman::Config.get(:layout_dir),
+          Frontman::Config.get(:partial_dir),
           content_dir,
           helpers_dir
         ]).filter { |dir| Dir.exist?(dir) }
@@ -63,6 +68,7 @@ module Frontman
             elsif resource_path.end_with?('.rb')
               load("./#{resource_path}")
             end
+            wss.reload_client
           rescue Error
             # We ignore all errors to prevent the listener from crashing.
             # Errors will be surfaced by the server instead.
@@ -72,12 +78,10 @@ module Frontman
 
       listener.start
 
-      FrontmanServer.set :public_folder, Frontman::Config.get(
-        :public_dir, fallback: 'public'
-      )
+      FrontmanServer.set :public_folder, Frontman::Config.get(:public_dir)
 
-      port = Frontman::Config.get(:port, fallback: 4568)
-      num_retries = Frontman::Config.get(:port_retries, fallback: 3)
+      port = Frontman::Config.get(:port)
+      num_retries = Frontman::Config.get(:port_retries)
 
       port_retry_strategy = Frontman::Config.get(:port_retry_strategy, fallback: ->(p) {
         port_in_use = false
@@ -100,7 +104,7 @@ module Frontman
       })
 
       FrontmanServer.set(:port, port_retry_strategy.call(port))
-      FrontmanServer.set(:bind, Frontman::Config.get(:host, fallback: 'localhost'))
+      FrontmanServer.set(:bind, Frontman::Config.get(:host))
 
       FrontmanServer.run! do
         hostname = FrontmanServer.settings.bind
@@ -120,6 +124,8 @@ class FrontmanServer < Sinatra::Base
       # Remove logger for WebRick, we have the one of sinatra already
       Logger: Rack::NullLogger.new(self)
 
+  use Rack::LiveReload, host: Frontman::LiveReload.wss_host, port: Frontman::LiveReload.wss_port,
+                        no_swf: true, source: :vendored
   use BetterErrors::Middleware
   BetterErrors.application_root = Dir.pwd
 

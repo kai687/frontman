@@ -16,4 +16,11 @@ describe Frontman::DataStoreFile do
       expect(subject.to_ostruct.is_a?(Frontman::DataStoreFile)).to eq true
     end
   end
+
+  describe 'parse dates' do
+    it 'parses dates correctly' do
+      expect(subject.date).is_a?(Date)
+      expect(subject.datetime).is_a?(DateTime)
+    end
+  end
 end

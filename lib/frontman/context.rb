@@ -16,7 +16,7 @@ module Frontman
 
     sig { params(layout: String, block: T.proc.void).returns(String) }
     def wrap_layout(layout, &block)
-      layout_dir = Frontman::Config.get(:layout_dir, fallback: 'views/layouts')
+      layout_dir = Frontman::Config.get(:layout_dir)
       layout_path = File.join(layout_dir, layout)
 
       content = get_content_buffer(nil, &block)
@@ -29,7 +29,8 @@ module Frontman
         key: T.any(String, Symbol),
         content: T.untyped,
         block: T.nilable(T.proc.void)
-      ).returns(T.untyped)
+      )
+        .returns(T.untyped)
     end
     def content_for(key, content = nil, &block)
       content = get_content_buffer(content, &(block if block_given?))
@@ -45,7 +46,8 @@ module Frontman
         key: T.any(String, Symbol),
         content: T.untyped,
         block: T.nilable(T.proc.void)
-      ).returns(T.untyped)
+      )
+        .returns(T.untyped)
     end
     def append_content(key, content = nil, &block)
       content = get_content_buffer(content, &(block if block_given?))
@@ -92,21 +94,21 @@ module Frontman
 
     sig { void }
     def save_buffer
-      renderers.each do |_, renderer|
+      renderers.each_value do |renderer|
         renderer.save_buffer(self) if renderer.respond_to?(:save_buffer)
       end
     end
 
     sig { void }
     def restore_buffer
-      renderers.each do |_, renderer|
+      renderers.each_value do |renderer|
         renderer.restore_buffer(self) if renderer.respond_to?(:restore_buffer)
       end
     end
 
     sig { returns(T.untyped) }
     def load_buffer
-      renderers.each do |_, renderer|
+      renderers.each_value do |renderer|
         content = renderer.load_buffer(self) if renderer.respond_to?(:load_buffer)
         return content if content
       end

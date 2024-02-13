@@ -9,8 +9,8 @@ require 'rubocop/rake_task'
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
-  $stderr.puts e.message
-  $stderr.puts 'Run `bundle install` to install missing gems'
+  warn e.message
+  warn 'Run `bundle install` to install missing gems'
   exit e.status_code
 end
 
@@ -18,7 +18,12 @@ RSpec::Core::RakeTask.new(:spec)
 
 RuboCop::RakeTask.new(:rubocop)
 
-task default: [:spec, :rubocop]
+task default: %i[spec rubocop tc]
+
+desc 'Type check with sorbet (via spoom)'
+task :tc do
+  `spoom tc`
+end
 
 namespace :frontman do
   GEM_VERSION_FILE = File.join(Dir.pwd, 'lib/frontman/version.rb')
@@ -37,7 +42,7 @@ namespace :frontman do
   end
 
   desc 'Write latest changes to CHANGELOG.md'
-  task :changelog, [:version] do |t, args|
+  task :changelog, [:version] do |_t, args|
     # Filters-out commits containing some keywords and adds header
     exceptions_regexp = Regexp.union(['README'])
     title = "## [#{args[:version]}] (#{GIT_TAG_URL}#{args[:version]}) (#{last_commit_date})\n\n"
@@ -59,8 +64,7 @@ namespace :frontman do
   end
 
   desc 'Bump gem version'
-  task :semver, [:version] do |t, args|
-
+  task :semver, [:version] do |_t, args|
     File.open(GEM_VERSION_FILE, 'w') do |file|
       file.write <<~SEMVER
         module Frontman
@@ -77,8 +81,8 @@ namespace :frontman do
   end
 
   desc 'Release a new version of this gem'
-  task :release, [:version] => %i[changelog semver] do |t, args|
-    `git add #{File.expand_path('../lib/frontman/version.rb', __FILE__)} CHANGELOG.md`
+  task :release, [:version] => %i[changelog semver] do |_t, args|
+    `git add #{File.expand_path('lib/frontman/version.rb', __dir__)} CHANGELOG.md`
     `git commit -m "Bump to version #{args[:version]}"`
 
     # Invoke Bundler :release task

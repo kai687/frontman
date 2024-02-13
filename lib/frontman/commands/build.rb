@@ -34,22 +34,21 @@ module Frontman
 
       timer = Frontman::Toolbox::Timer.start
 
-      current_build_files = Dir.glob(Dir.pwd + '/build/**/*').reject do |f|
+      build_dir = "#{Dir.pwd}/#{Frontman::Config.get(:build_dir)}"
+      current_build_files = Dir.glob(File.join(build_dir, '/**/*')).reject do |f|
         File.directory? f
       end
 
-      public_dir = Frontman::Config.get(:public_dir, fallback: 'public/')
+      public_dir = Frontman::Config.get(:public_dir)
       assets_to_build = Dir.glob(File.join(public_dir, '**/*')).reject do |f|
         File.directory? f
       end
 
-      mapping_path = Dir.pwd + '/_build.json'
+      mapping_path = "#{Dir.pwd}/_build.json"
       mapping = Frontman::Builder::Mapping.new(mapping_path)
       mapping.delete_file
 
-      build_directory = Dir.pwd + '/build/'
       builder = Frontman::Builder::Builder.new
-      builder.build_directory = build_directory
       builder.current_build_files = current_build_files
 
       builder.on('created, updated, deleted, unchanged', ->(build_file) {

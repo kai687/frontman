@@ -2,10 +2,11 @@
 # frozen_string_literal: true
 
 require 'frontman/renderers/renderer'
+require 'frontman/renderers/asciidoc_renderer'
 require 'frontman/renderers/erb_renderer'
 require 'frontman/renderers/haml_renderer'
-require 'frontman/renderers/slim_renderer'
 require 'frontman/renderers/markdown_renderer'
+require 'frontman/renderers/slim_renderer'
 require 'singleton'
 require 'sorbet-runtime'
 
@@ -22,9 +23,10 @@ module Frontman
     sig { returns(T::Hash[Symbol, Frontman::Renderer]) }
     def all_renderers
       @all_renderers ||= {
+        adoc: Frontman::AsciidocRenderer.instance,
         erb: Frontman::ErbRenderer.instance,
-        md: Frontman::MarkdownRenderer.instance,
         haml: Frontman::HamlRenderer.instance,
+        md: Frontman::MarkdownRenderer.instance,
         slim: Frontman::SlimRenderer.instance
       }
     end

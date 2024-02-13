@@ -11,7 +11,7 @@ module Frontman
       sig do
         params(
           processors: T::Array[Frontman::Process::Processor]
-        ).returns(T.self_type)
+        ).void
       end
       def initialize(processors = [])
         @processors = []
