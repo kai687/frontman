@@ -1,5 +1,5 @@
 # typed: false
-# frozen_string_literal: false
+# frozen_string_literal: true
 
 require 'ostruct'
 
@@ -31,7 +31,7 @@ class Hash
       end
     end
 
-    CustomStruct.new(Hash[arr])
+    CustomStruct.new(arr.to_h)
   end
 end
 

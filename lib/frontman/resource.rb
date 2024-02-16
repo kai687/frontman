@@ -90,7 +90,7 @@ module Frontman
       return unless File.exist?(data_file)
 
       begin
-        data = YAML.safe_load(File.read(data_file)).to_ostruct
+        data = YAML.safe_load_file(data_file).to_ostruct
       rescue Psych::SyntaxError => e
         raise "#{e} - #{data_file}"
       end

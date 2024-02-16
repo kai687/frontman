@@ -110,7 +110,7 @@ module Frontman
 
     sig { params(dirs: T.any(Array, Hash)).void }
     def register_data_dirs(dirs)
-      dirs = dirs.map { |dir| [dir.split('/').last, dir] }.to_h if dirs.is_a?(Array)
+      dirs = dirs.to_h { |dir| [dir.split('/').last, dir] } if dirs.is_a?(Array)
 
       dirs.each do |name, dir|
         define_singleton_method(name) do

@@ -140,7 +140,7 @@ module Frontman
       current_part = parts.shift
       used_parts.push(current_part)
       child = @children.select { |c| c.url_part == current_part }
-      child = !child.empty? ? child[0] : nil
+      child = child.empty? ? nil : child[0]
 
       if child.nil?
         child = SitemapTree.new(current_part)

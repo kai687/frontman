@@ -1,6 +1,7 @@
 AllCops:
   TargetRubyVersion: 3.3
   SuggestExtensions: false
+  NewCops: enable
   Exclude:
     - "**/Rakefile"
     - "vendor/**/*"
@@ -25,6 +26,9 @@ Style/Documentation:
     - "test/**/*"
     - "lib/**/*"
     - "project-templates/**/*"
+
+Stlye/ArgumentsForwarding:
+  UseAnonymousForwarding: false
 
 Lint/MissingSuper:
   Exclude:
@@ -98,6 +102,9 @@ Naming/FileName:
     - "spec/**/*"
     - "lib/frontman/helpers/**/*"
 
+Naming/BlockForwarding:
+  EnforcedStyle: explicit
+
 Metrics/ParameterLists:
   Exclude:
     - "lib/frontman/app.rb"
@@ -105,3 +112,9 @@ Metrics/ParameterLists:
 Lint/SuppressedException:
   Exclude:
     - "lib/frontman/commands/serve.rb"
+
+Gemspec/RequireMFA:
+  Enabled: false
+
+Style/OpenStructUse:
+  Enabled: false

@@ -17,7 +17,7 @@ describe Frontman::DispatchEvents do
     })
 
     expect(subject.listeners.length).to eq 1
-    expect(subject.listeners['test_event'.to_sym].length).to eq 1
+    expect(subject.listeners[:test_event].length).to eq 1
   end
 
   it 'should register multiple events properly' do
@@ -26,8 +26,8 @@ describe Frontman::DispatchEvents do
     })
 
     expect(subject.listeners.length).to eq 2
-    expect(subject.listeners['event1'.to_sym].length).to eq 1
-    expect(subject.listeners['event2'.to_sym].length).to eq 1
+    expect(subject.listeners[:event1].length).to eq 1
+    expect(subject.listeners[:event2].length).to eq 1
   end
 
   it 'should fire multiple events at once' do
@@ -65,6 +65,6 @@ describe Frontman::DispatchEvents do
     subject.off('test_event')
 
     expect(subject.listeners.length).to eq 1
-    expect(subject.listeners['test_event'.to_sym].length).to eq 0
+    expect(subject.listeners[:test_event].length).to eq 0
   end
 end

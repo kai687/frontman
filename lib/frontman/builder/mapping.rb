@@ -40,9 +40,7 @@ module Frontman
 
       sig { void }
       def save_file
-        ::File.open(output_path, 'w') do |f|
-          f.write(JSON.pretty_generate(@mapping))
-        end
+        ::File.write(output_path, JSON.pretty_generate(@mapping))
       end
 
       sig { void }
