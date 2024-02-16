@@ -5,7 +5,6 @@ require './lib/frontman/version'
 Gem::Specification.new do |s|
   s.name = 'frontman-ssg'
   s.version = Frontman::VERSION
-  s.date = '2019-06-06'
   s.summary = 'A Middleman-inspired static site generator built for speed.'
   s.description = 'A Middleman-inspired static site generator built for speed.'
   s.authors = ['Devin Beeuwkes']
@@ -18,14 +17,6 @@ Gem::Specification.new do |s|
 
   # Min Ruby version
   s.required_ruby_version = '>= 2.6.0', '<= 4'
-
-  # Development tools
-  s.add_development_dependency('rake', '~> 13.1')
-  s.add_development_dependency('rspec', '~> 3.8')
-  s.add_development_dependency('rubocop', '~> 1.60.2')
-  s.add_development_dependency('simplecov', '~> 0.16')
-  s.add_development_dependency('sorbet', '~> 0.5')
-  s.add_development_dependency('tapioca', '~> 0.12')
 
   # Frontman dependencies
   s.add_runtime_dependency('base64')
