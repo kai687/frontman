@@ -46,17 +46,16 @@ module Frontman
         Thread.new do
           EventMachine.run do
             EventMachine.start_server(@host, @port, EventMachine::WebSocket::Connection, {}) do |ws|
+              print "== LiveReload server listening on port #{@port}\n"
               ws.onopen do
                 ws.send '!!ver:2.08'
                 @websockets << ws
-                print "== LiveReload client connected\n"
               rescue StandardError
                 warn $ERROR_INFO
               end
 
               ws.onclose do
                 @websockets.delete ws
-                print "== LiveReload client disconnected\n"
               end
             end
           end
