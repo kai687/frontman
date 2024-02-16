@@ -45,6 +45,7 @@ module Frontman
       def start_server
         Thread.new do
           EventMachine.run do
+            print "== LiveReload server listening on port #{@port}\n"
             EventMachine.start_server(@host, @port, EventMachine::WebSocket::Connection, {}) do |ws|
               print "== LiveReload server listening on port #{@port}\n"
               ws.onopen do
