@@ -27,7 +27,7 @@ Style/Documentation:
     - "lib/**/*"
     - "project-templates/**/*"
 
-Stlye/ArgumentsForwarding:
+Style/ArgumentsForwarding:
   UseAnonymousForwarding: false
 
 Lint/MissingSuper:

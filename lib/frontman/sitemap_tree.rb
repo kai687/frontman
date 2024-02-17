@@ -8,7 +8,7 @@ module Frontman
   class SitemapTree
     extend T::Sig
 
-    attr_reader :path, :children, :url_part
+    attr_reader :children, :url_part
     attr_accessor :parent, :position, :resource, :url
 
     class << self
