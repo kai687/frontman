@@ -21,6 +21,12 @@ module Frontman
       Frontman::Config.set(:mode, 'serve')
       app = Frontman::App.instance
       Frontman::Bootstrapper.bootstrap_app(app)
+      content_dir = Frontman::Config.get(:content_dir)
+      unless content_dir.nil?
+        Frontman::Bootstrapper.resources_from_dir(content_dir).each do |resource|
+          app.sitemap_tree.add(resource)
+        end
+      end
 
       # Launch a websocket server for live reloading
       wss = Frontman::LiveReload::Server.new
@@ -33,7 +39,6 @@ module Frontman
       processes = assets_pipeline.run_in_background!(:before)
 
       helpers_dir = Frontman::Config.get(:helpers_dir)
-      content_dir = Frontman::Config.get(:content_dir)
       listen_to_dirs = Frontman::Config.get(:observe_dirs, fallback:
         [
           Frontman::Config.get(:layout_dir),
