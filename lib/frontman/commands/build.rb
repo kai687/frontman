@@ -18,12 +18,17 @@ module Frontman
     desc 'build', 'Build the static website'
     def build
       Frontman::Config.set(:mode, 'build')
-      Frontman::Bootstrapper.bootstrap_app(Frontman::App.instance)
+      app = Frontman::App.instance
+      Frontman::Bootstrapper.bootstrap_app(app)
+      content_dir = Frontman::Config.get(:content_dir)
+      unless content_dir.nil?
+        Frontman::Bootstrapper.resources_from_dir(content_dir).each do |resource|
+          app.sitemap_tree.add(resource)
+        end
+      end
 
       assets_pipeline = Frontman::Builder::AssetPipeline.new(
-        Frontman::App.instance
-          .asset_pipelines
-          .filter { |p| %i[all build].include?(p[:mode]) }
+        app.asset_pipelines.filter { |p| %i[all build].include?(p[:mode]) }
       )
 
       assets_pipeline.run!(:before)
