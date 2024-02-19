@@ -9,9 +9,3 @@ register_layout '*', 'main.erb'
 # register_layout '*', 'main.haml'
 
 Frontman::Config.set(:domain, 'https://example.com')
-
-Frontman::Bootstrapper.resources_from_dir(
-  'source/'
-).each do |resource|
-  sitemap_tree.add(resource)
-end
