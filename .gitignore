@@ -7,4 +7,4 @@ _build.json
 build
 coverage
 node_modules
-public/styles.css
+docs/public/styles.css

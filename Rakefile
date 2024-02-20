@@ -27,9 +27,10 @@ end
 
 desc 'Build docs'
 task :docs do
-  `cd docs`
-  `pnpm install`
-  `bundle exec frontman build`
+  Dir.chdir('docs') do
+    `pnpm install`
+    `bundle exec frontman build`
+  end
 end
 
 namespace :frontman do
