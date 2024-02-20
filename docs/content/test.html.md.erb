@@ -1,0 +1,9 @@
+---
+title: Partials with blocks (tests)
+description: Test for partials with blocks.
+---
+
+<%= partial_block "test.erb" do <<-EOF
+Hello from the block.
+EOF
+end %>
