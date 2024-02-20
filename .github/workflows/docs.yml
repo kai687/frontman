@@ -48,7 +48,7 @@ jobs:
             docs/build --exclude-all-private --base docs/build --exclude gstatic.com --exclude googleapis.com
 
       - name: Check style guide
-        uses: errata-ai/vale-action@v2.1
+        uses: errata-ai/vale-action@v2.1.0
         with:
           files: docs/content
           fail_on_error: false
