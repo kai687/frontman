@@ -7,7 +7,8 @@ on:
       - "docs/content/**/*.html.*"
 
 jobs:
-  links:
+  docs:
+    name: Check docs quality
     runs-on: ubuntu-latest
     env:
       BUNDLE_WITH: "docs"
@@ -35,7 +36,7 @@ jobs:
       - name: Build docs
         run: bundle exec rake docs
 
-      - name: Validate frontmatter
+      - name: Check frontmatter
         run: bundle exec ruby validate_frontmatter.rb
         working-directory: ./docs
 
@@ -45,3 +46,10 @@ jobs:
           fail: true
           args: |
             docs/build --exclude-all-private --base docs/build --exclude gstatic.com --exclude googleapis.com
+
+      - name: Check style guide
+        uses: errata-ai/vale-action@2.1
+        with:
+          files: docs/content
+          fail_on_error: false
+          vale_flags: --config docs/.vale.ini
