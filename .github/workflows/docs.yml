@@ -44,4 +44,4 @@ jobs:
         with:
           fail: true
           args: |
-            build --exclude-all-private --base build --exclude gstatic.com --exclude googleapis.com
+            docs/build --exclude-all-private --base build --exclude gstatic.com --exclude googleapis.com
