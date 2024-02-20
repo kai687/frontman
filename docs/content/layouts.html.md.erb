@@ -1,0 +1,101 @@
+---
+title: Layouts
+description: Add layouts to your site for sharing HTML between your pages.
+position: 2
+---
+
+Layouts let you share HTML between pages.
+For example, a main layout could contain a header and footer that's shown on every page.
+
+## Configure layout directory
+
+By default, Frontman looks for layouts in the directory `views/layouts`.
+To change this setting, add the following code to your `config.rb` file:
+
+```rb
+# config.rb
+Frontman::Config.set(:layout_dir, 'custom-layout-directory')
+```
+
+For more information, see [[configuration]].
+Frontman lets you define layouts in a number of [[templating-engines|templating languages]].
+
+## Register layouts
+
+You can register layouts based on the URL of a page.
+For example, to use the layout `views/layouts/blog.haml`
+for all pages with the `/blog/` route,
+add the following code to your `config.rb` file:
+
+```rb
+# config.rb
+register_layout('blog/*', 'blog.haml')
+```
+
+Frontman uses glob matching to find the first matching layout for any page.
+Register more specific layouts first to avoid _catch all_ patterns like `*`
+override your more specific layouts.
+
+## Choose layouts via frontmatter
+
+You can select or override layouts in your frontmatter with the `layout` key.
+
+```yml
+---
+layout: blog.haml
+---
+```
+
+Layouts defined in the frontmatter take precedence over any registered layouts in the `config.rb` file.
+
+## Extend layouts
+
+To avoid repetition between parts of your site,
+you can wrap layouts with other layouts using the `wrap_layout` method.
+
+For example, you could have a base layout `main.haml`:
+
+```haml
+-# views/layouts/main.haml
+%html
+  %head
+    %title
+      My site
+    %body
+      = yield
+```
+
+And a more specific layout for blog posts that _wraps_ the main layout:
+
+```haml
+-# views/layouts/blog.haml
+= wrap_layout 'main.haml' do
+  %article.content
+  = yield
+```
+
+If you register your blog layout for all blog posts,
+your Markdown content is rendered into the template at the `yield` position.
+
+## Layout slots
+
+To insert data into specific _slots_ in the layout,
+use one of the following methods.
+
+- **Declare content slots** with `content_for`:
+
+  ```rb
+  content_for :page_title, current_page.data.title
+  ```
+
+- **Check if content is defined for a slot** with `content_for?`:
+
+  ```rb
+  content_for? :page_title
+  ```
+
+- **Render a content slot** in a layout with `yield_content`:
+
+  ```rb
+  yield_content :page_title
+  ```

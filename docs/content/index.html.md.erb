@@ -1,0 +1,83 @@
+---
+sidebar_label: Get started
+---
+
+<% content_for :before_content do %>
+<img src="/frontman-logo.svg" alt="" class="mx-auto">
+<% end %>
+
+## Highlights
+
+<%= partial 'features.haml' %>
+
+## Get started
+
+Frontman requires Ruby version <%= data.site.min_ruby_version %> or later.
+
+To get started, add the `frontman-ssg` gem to your `Gemfile`:
+
+```sh
+bundle add frontman-ssg --version '~> <%= data.site.frontman_version %>'
+```
+
+> You can create a new `Gemfile` by running: `bundle init`.
+
+## Create a new project
+
+The `frontman init` command scaffolds a basic project for you to get started.
+To create a new project in the directory `<NEW_PROJECT>`, run:
+
+```sh
+frontman init <NEW_PROJECT>
+```
+
+> If you started  a new project with `bundle init`, you can create the new site in the current directory.
+> Run `frontman init .`
+
+## Start developing your site
+
+The `frontman serve` command starts a development server for you to preview your changes.
+To start it, run:
+
+```sh
+cd <NEW_PROJECT>
+bundle install
+bundle exec frontman serve
+```
+
+By default, the preview is available at [http://localhost:4568](http://localhost:4568).
+If you edit the page `source/index.html.md.erb`,
+the preview automatically refreshes in your browser.
+
+## Add more content
+
+Add more pages to the `source` directory and they get automatically converted to HTML.
+For example, create a new file `source/about.html.md.erb` and enter the following content.
+
+```markdown
+---
+title: About
+---
+
+Write some content with **Markdown**.
+```
+
+This new page will be available at [http://localhost:4568/about](http://localhost:4568/about).
+
+- For more information, see [[content]].
+- Curious about the strange file extensions? See [[templating-engines]].
+
+## Build your site
+
+To build your static website, run:
+
+```sh
+bundle exec frontman build
+```
+
+Your website will be in the `build` directory.
+
+## Next steps
+
+- To learn how to configure your site, see [[configuration]].
+- To learn how to add layouts to your site, see [[layouts]].

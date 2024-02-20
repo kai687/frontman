@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.1
   SuggestExtensions: false
   NewCops: enable
   Exclude:
@@ -27,9 +27,6 @@ Style/Documentation:
     - "lib/**/*"
     - "project-templates/**/*"
 
-Style/ArgumentsForwarding:
-  UseAnonymousForwarding: false
-
 Lint/MissingSuper:
   Exclude:
     - "lib/**/*"
@@ -44,6 +41,8 @@ Metrics/MethodLength:
     - "lib/frontman/resource.rb"
     - "lib/frontman/context.rb"
     - "lib/frontman/helpers/render_helper.rb"
+    - "docs/src/renderers/wikilinks.rb"
+    - "docs/src/renderers/headerlinks.rb"
 
 Metrics/AbcSize:
   Exclude:
@@ -53,6 +52,7 @@ Metrics/AbcSize:
     - "lib/frontman/builder/statistics_collector.rb"
     - "lib/frontman/commands/**/*"
     - "lib/frontman/resource.rb"
+    - "docs/src/renderers/headerlinks.rb"
 
 Style/ClassVars:
   Exclude:
@@ -117,4 +117,7 @@ Gemspec/RequireMFA:
   Enabled: false
 
 Style/OpenStructUse:
+  Enabled: false
+
+Style/ArgumentsForwarding:
   Enabled: false

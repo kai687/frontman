@@ -1,0 +1,55 @@
+---
+title: Sitemap
+description: The sitemap is Frontman's central data structure that knows about every page in your site.
+position: 9
+---
+
+The `SitemapTree` class represents the structure of your site.
+It can have other `SitemapTree` nodes and one or zero `Resource` objects.
+A `SitemapTree` has one `Resource` object if there's a page at its path.
+
+Consider the following site.
+
+[%header,cols=3]
+|===
+|URL
+|# `SitemapTree` 
+|# `Resource`
+
+|`/about/`
+|1
+|0
+
+|`/about/people/`
+|2
+|1
+
+|`/about/people/idris`
+|1
+|1
+
+|`/about/people/naomi`
+|1
+|1
+|===
+
+There's no `Resource` associated with the `SitemapTree` for `/about/` because there's no page at that URL.
+
+== Access the `SitemapTree`
+
+At the class level, Frontman has a static hash or URLs and their associated `SitemapTree` instances.
+This is useful if you want to access a URL directly, regardless of what `SitemapTree` the current page belongs to.
+
+[,ruby]
+----
+sitemap = Frontman::App.sitemap_tree.from_url('/about/')
+----
+
+At the instance level, Frontman lets you traverse the children of the current `SitemapTree`.
+
+[,ruby]
+----
+current_tree.children.each do |child|
+  puts child.resource.path
+end
+----

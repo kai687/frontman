@@ -1,0 +1,77 @@
+---
+title: Templating engines
+description: Frontman supports a number of templating languages for writing content and building layouts.
+position: 4
+---
+:relfileprefix: ../
+:relfilesuffix: /
+
+Frontman selects templating engines based on file extensions.
+You can combine multiple templating engines by combining their file extensions.
+This is especially powerful for enhancing Markdown.
+A templating engine can complement Markdown and add features such as <<partials#content, Partials>>,
+conditionals, or variables.
+
+Frontman processes file extensions from the end.
+
+For example to process the file `page.html.md.erb`,
+Frontman runs the following sequence:
+
+. Render the ERB templates.
+. Convert the Markdown.
+
+The final output is HTML.
+
+== Supported templating engines
+
+Frontman supports these templating languages:
+
+* https://github.com/kwatch/erubis[ERB]
+* https://haml.info/docs.html[HAML]
+* https://slim-template.github.io[Slim]
+* https://kramdown.gettalong.org/[Markdown (Kramdown)]
+
+== Add custom renderers
+
+To add your own templating engines,
+implement a new Frontman `Renderer` subclass.
+
+For example, if you like https://asciidoc.org/[AsciiDoc]:
+
+[,ruby]
+----
+include::src/renderers/asciidoc_renderer.rb[]
+----
+
+To register this new renderer, use the `register_custom_renderer` function
+in your `config.rb` file:
+
+[,ruby]
+----
+require 'renderers/asciidoc_renderer'
+
+register_custom_renderer 'adoc', CustomRenderers::AsciidocRenderer
+----
+
+Now you can write content using AsciiDoc and combine it with the other templating engines.
+
+.AsciiDoc is powerful
+[%collapsible]
+====
+AsciiDoc has many features that make it more suitable for writing technical documentation compared to Markdown.
+It is extensible by design and you don't have to resort to _tricks_ like using a templating language.
+====
+
+
+'''
+
+Custom renderers aren't only useful to support new markup or templating languages.
+You can use the same mechanism to customize existing renderers.
+
+pass:[<!-- vale Google.We = NO -->]
+
+For example, this website includes links in headers,
+which isn't the default Kramdown behavior. To achieve this,
+we create a custom Kramdown HTML renderer that changes the way headings are rendered.
+Then, we create a subclass of the builtin `Frontman::MarkdownRenderer` class
+and register this custom renderer for Markdown.

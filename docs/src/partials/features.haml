@@ -1,0 +1,15 @@
+:ruby
+  features = {
+    "Fast":  "Frontman can handle sites with more than 1,000 pages with ease. It has been the backbone of the Algolia docs for years.",
+    "Flexible": "Frontman comes with reasonable defaults but isn’t too opinionated how you structure your project. Combine templating engines and use the asset pipeline to build your website.",
+    "Extensible": "Frontman is written in Ruby. That’s why it’s easy to add new features or change existing ones.",
+    "Powerful content features": "Frontman scales with your needs. Extend Markdown or create whole pages programmatically from data files.",
+  }
+
+.grid.sm:grid-cols-2.gap-4
+  - features.each do |feature,desc|
+    .border.border-gray-300.dark:border-gray-700.rounded-md.px-4.py-2
+      .font-bold.dark:font-extrabold.tracking-wide.mb-6
+        = feature
+      %p.leading-7
+        = desc

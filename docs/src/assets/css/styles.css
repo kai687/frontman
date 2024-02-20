@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#menu ~ #nav {
+  @apply max-h-0 lg:max-h-full overflow-hidden lg:overflow-visible transition-height;
+}
+
+#menu:checked ~ #nav {
+  @apply max-h-[500px] lg:max-h-full overflow-y-auto;
+}
+
+#menu:checked + label {
+  @apply font-medium translate-x-1 translate-y-1 border-black dark:border-white shadow;
+}
+
+div.highlight,
+div.listingblock {
+  @apply relative overflow-x-auto bg-inherit;
+}
+
+pre.highlight {
+  @apply border border-gray-300 dark:border-gray-600;
+}
+
+.copy {
+  @apply text-xs uppercase tracking-wide absolute top-12 right-2 font-mono border rounded-md px-1 py-0.5 opacity-0 transition active:translate-x-px active:translate-y-px focus:opacity-100 hover:border-black dark:hover:border-white bg-inherit;
+}
+
+div.highlight:hover .copy,
+div.highlight:focus .copy,
+div.listingblock:hover .copy,
+div.listingblock:focus .copy {
+  @apply opacity-100;
+}
+
+p.tableblock {
+  @apply m-0;
+}
+
+blockquote.tip {
+  @apply border-green-500;
+}
+
+details p {
+  @apply !mb-2 !mt-0 ml-8;
+}

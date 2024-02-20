@@ -1,0 +1,50 @@
+---
+title: Partials
+description: Create reusable content blocks.
+position: 5
+---
+:relfileprefix: ../
+:relfilesuffix: /
+
+With partials, you can create reusable components so that you don't have to duplicate the same code on many pages.
+Partials can use all templating engines supported by Frontman.
+For more information, see <<templating-engines#content, Templating engines>>.
+
+== Configure partial directory
+
+By default, Frontman looks for partials in the directory `views/partials`.
+To change this setting, add the following code to your `config.rb` file:
+
+[,ruby]
+----
+# config.rb
+Frontman::Config.set(:partials_dir, 'custom-partial-directory')
+----
+
+== Include partials in your pages
+
+To include a partial, use the `partial` method.
+It takes two parameters:
+
+- `partial_file` (required). The path to your partial, relative to the `:partials_dir` directory.
+- `data`. A hash with data to expose in the partials.
+
+For example, you can create a partial `views/partials/test.md.erb`:
+
+[,erb]
+----
+<!-- views/partials/test.md.erb -->
+
+### Heading for <%= section %>
+----
+
+Then, in your Markdown page with the `.html.md.erb` extension,
+you can include the partial:
+
+[,erb]
+----
+
+This is text before a partial is included.
+
+<%= partial 'test.md.erb', section: 'introduction' %>
+----

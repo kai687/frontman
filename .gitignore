@@ -1,5 +1,10 @@
 *.gem
-/coverage
 Gemfile.lock
 spec/frontman/build
 bin/tapioca
+.bundle
+_build.json
+build
+coverage
+node_modules
+public/styles.css

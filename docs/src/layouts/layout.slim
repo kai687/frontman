@@ -1,0 +1,83 @@
+- title = yield_content(:title) || current_page.data.title || data.site.title
+- description = yield_content(:description) || current_page.data.description || data.site.description
+/ Sort pages for the navigation in the sidebar by the `:position` frontmatter key
+/ Sort pages without this key at the end
+- sorted = sorted_sitemap
+- current_page_index = sorted.find_index(current_tree)
+- previous_page, next_page = neighbors(sorted, current_page_index)
+
+doctype html
+html lang="en"
+  head
+    title
+      = root? ? title : (title + " | Frontman")
+    meta charset="utf-8"
+    meta name="generator" content="Frontman #{Frontman::VERSION}"
+    meta name="description" content="#{description}"
+    meta name="viewport" content="width=device-width,initial-scale=1.0"
+    link rel="stylesheet" href="/styles.css"
+    link rel="stylesheet" href="/syntax.css" media="(prefers-color-scheme: light)"
+    link rel="stylesheet" href="/syntax-dark.css" media="(prefers-color-scheme: dark)"
+    link rel="preconnect" href="https://fonts.googleapis.com"
+    link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=true
+    link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet"
+    link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"
+    script src="/script.js" type="module" defer="true"
+  body.text-gray-800.bg-gray-50.dark:bg-gray-900.dark:text-gray-200.antialiased.scroll-smooth
+    a href = "#content" class = "block absolute top-0 left-0 right-0 p-6 bg-gray-50 dark:bg-gray-950 -translate-x-full font-medium focus:translate-x-0"
+      | Skip to content
+    a href = "#nav" class = "block absolute top-0 left-0 right-0 p-6 bg-gray-50 dark:bg-gray-950 -translate-x-full font-medium focus:translate-x-0"
+      | Skip to navigation
+    .px-6.max-w-screen-2xl.mx-auto
+      header.py-6.border-b.border-gray-300.dark:border-gray-600.flex.justify-between
+        a.block.text-xl.hover:underline href="/"
+          = data.site.title
+        a.flex.p-2.gap-2.rounded.hover:underline href="https://github.com/algolia/frontman"
+          svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
+            path d="M9 18c-4.51 2-5-2-7-2"
+          | GitHub
+
+      div class="lg:grid grid-cols-[4fr_1fr] gap-8"
+        aside.col-start-2.row-start-1.lg:border-l.pt-12.lg:pl-6.border-gray-300.dark:border-gray-600
+          .sticky.top-10
+            input#menu.hidden type = "checkbox"
+            label.inline-block.border.border-gray-300.dark:border-gray-700.p-2.mb-4.rounded-md.lg:hidden.text-sm for = "menu" tabindex = "0"
+              | Content
+            nav.space-y-2.dark:font-light.ml-2.lg:ml-0 id = "nav"
+              - sorted.each do |page|
+                - active = (current_tree.url.nil? && page.url.nil?) || (current_tree.url == page.url)
+                a.block.text-lg.hover:underline.focus:outline-none.focus:underline.decoration-blue-600.decoration-2.underline-offset-2 href=(root?(page)  ? '/' : page.final_url) class=("font-medium border-gray-700 dark:border-gray-200 lg:border-l-[3px] lg:pl-5 lg:-ml-6" if active)
+                  = sidebar_label(page)
+              .space-y-2.pb-8
+                .border-t.border-gray-300.dark:border-gray-600.pt-6.mt-8
+                a.block.text-blue-600.hover:underline href = data.site.issue_link
+                  | Report an issue
+                a.block.text-gray-300.cursor-not-allowed
+                  | Edit this page
+
+        main.prose.prose-lg.dark:prose-invert.col-start-1.row-start-1.pt-12
+          - if content_for?(:before_content)
+            = yield_content :before_content
+          h1 id = "content" class = "scroll-mt-8"
+            a href = "#content"
+              = title
+          .lead = description
+          = yield
+
+          .flex.mt-16
+            - unless previous_page.nil?
+              .mr-auto.space-y-2
+                .font-medium.dark:font-extrabold = "Previous"
+                a.block.no-underline.hover:underline.decoration-blue-600.decoration-2.underline-offset-4 href = link_to(previous_page)
+                  = sidebar_label(previous_page)
+            - unless next_page.nil?
+              .ml-auto.text-right.space-y-2
+                .font-medium.dark:font-extrabold = "Next"
+                a.block.no-underline.hover:underline.decoration-blue-600.decoration-2.underline-offset-4 href = link_to(next_page)
+                  = sidebar_label(next_page)
+
+          footer.text-sm.py-6.mt-8.text-gray-700.dark:text-gray-400.border-t.border-gray-200.dark:border-gray-800
+            = "&copy; Copyright #{Time.new.year}. Built with 💙 at "
+            a href = 'https://www.algolia.com' class = 'text-black dark:text-white'
+              | Algolia.

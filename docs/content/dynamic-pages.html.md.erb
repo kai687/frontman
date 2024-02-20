@@ -1,0 +1,44 @@
+---
+title: Dynamic pages
+description: Create pages from data to avoid repetition.
+position: 9
+---
+
+If you have a lot of data and you want to render pages for each item of it,
+without having to copy and paste the same content, you can use Frontman's `add_proxy` function:
+
+```rb
+# config.rb
+sitemap_tree.add_proxy('<DESTINATION>', '<LAYOUT>', { <DATA> })
+```
+
+The `sitemap_tree` is the central data structure of Frontman and knows about all pages.
+
+The `add_proxy` function takes three parameters:
+
+`<DESTINATION>` (required)
+: The URL where the page should be available.
+  You must include `/index.html` at the end.
+
+`<LAYOUT>` (required)
+: The layout for rendering the page.
+
+`<DATA>`
+: A hash with custom data you want to make available inside the layout.
+
+For example:
+
+```rb
+# config.rb
+['Idris', 'Naomi'].each do |employee|
+  sitemap_tree.add_proxy("/about/#{employee.downcase}/index.html", 'views/layouts/about.haml', { employee_name: employee })
+end
+```
+
+In your layout file `about.haml`, you can render the employee's name:
+
+```haml
+-# views/layouts/about.haml
+%h1
+ = "About #{employee_name}"
+```

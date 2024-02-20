@@ -65,13 +65,11 @@ namespace :frontman do
 
   desc 'Bump gem version'
   task :semver, [:version] do |_t, args|
-    File.open(GEM_VERSION_FILE, 'w') do |file|
-      file.write <<~SEMVER
-        module Frontman
-          VERSION = "#{args[:version]}"
-        end
-      SEMVER
-    end
+    File.write(GEM_VERSION_FILE, <<~SEMVER)
+      module Frontman
+        VERSION = "#{args[:version]}"
+      end
+    SEMVER
 
     # This force to reload the file with the newest version.
     # Hence, `gemspec.version` invoked by Bundler later on will be correct.
@@ -89,6 +87,12 @@ namespace :frontman do
     # https://github.com/bundler/bundler/blob/master/lib/bundler/gem_helper.rb
     #
     # Rake::Task[:release].invoke
+  end
+
+  desc 'Build docs'
+  task :docs do
+    `cd docs`
+    `bundle exec frontman build`
   end
 end
 

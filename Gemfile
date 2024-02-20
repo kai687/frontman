@@ -12,3 +12,8 @@ group :development do
   gem 'sorbet', '~> 0.5'
   gem 'tapioca', '~> 0.12'
 end
+
+group :docs, optional: true do
+  gem 'asciidoctor', '~> 2.0'
+  gem 'json-schema', '~> 4.1'
+end

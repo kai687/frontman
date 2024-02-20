@@ -1,0 +1,27 @@
+---
+title: Content
+description: Add content to your site.
+position: 1
+---
+:relfileprefix: ../
+:relfilesuffix: /
+
+Frontman looks for your content files in the `:content_dir`
+directory, which is `source` by default.
+This means, Frontman converts all files with recognized file extensions to HTML.
+To change the content directory, see <<configuration#content, Configuration>>.
+
+For a more customized setup, you can add content in your `config.rb` file:
+
+[,ruby]
+----
+# config.rb
+
+# Turn off default content directory
+content_dir = Frontman::Config.get(nil)
+
+# Add all recognized files from a directory
+Frontman::Bootstrapper.resources_from_dir('custom/path').each do |resource|
+  sitemap_tree.add(resource)
+end
+----
