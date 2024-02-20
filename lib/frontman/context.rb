@@ -86,33 +86,6 @@ module Frontman
       binding { content }
     end
 
-    sig { params(content: T.untyped).returns(String) }
-    def get_content_buffer(content)
-      @parent_hash = @buffer_hash || nil
-      @buffer_hash = SecureRandom.hex
-
-      # Haml is not designed to do handle wrap_layout properly so we need to
-      # hack the buffer of haml that is set inside the context by haml
-      save_buffer
-
-      content ||= ''
-
-      if block_given?
-        # We don't save the content of the yield, it will be saved in the buffer
-        rendered_content = yield
-
-        # The buffer now contains the content of the yield when rendering HAML
-        content = load_buffer || rendered_content
-      end
-
-      # Restore the buffer so the rendering of the file can continue
-      restore_buffer
-
-      @buffer_hash = @parent_hash
-
-      content
-    end
-
     private
 
     def renderers
@@ -141,6 +114,33 @@ module Frontman
       end
 
       nil
+    end
+
+    sig { params(content: T.untyped).returns(String) }
+    def get_content_buffer(content)
+      @parent_hash = @buffer_hash || nil
+      @buffer_hash = SecureRandom.hex
+
+      # Haml is not designed to do handle wrap_layout properly so we need to
+      # hack the buffer of haml that is set inside the context by haml
+      save_buffer
+
+      content ||= ''
+
+      if block_given?
+        # We don't save the content of the yield, it will be saved in the buffer
+        rendered_content = yield
+
+        # The buffer now contains the content of the yield when rendering HAML
+        content = load_buffer || rendered_content
+      end
+
+      # Restore the buffer so the rendering of the file can continue
+      restore_buffer
+
+      @buffer_hash = @parent_hash
+
+      content
     end
   end
 end
