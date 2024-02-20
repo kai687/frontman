@@ -1,0 +1,46 @@
+name: Check docs
+
+on:
+  pull_request:
+    paths:
+      - "docs/content/**/*.html.*"
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    env:
+      BUNDLE_WITH: "docs"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: docs/package.json
+
+      - name: Install dependencies
+        working-directory: ./docs
+        run: |
+          npm install --global pnpm
+          pnpm install --frozen-lockfile
+
+      - name: Build docs
+        run: bundle exec rake docs
+
+      - name: Validate frontmatter
+        run: bundle exec ruby validate_frontmatter.rb
+        working-directory: ./docs
+
+      - name: Check links
+        uses: lycheeverse/lychee-action@v1.9.3
+        with:
+          fail: true
+          args: |
+            build --exclude-all-private --base build --exclude gstatic.com --exclude googleapis.com
