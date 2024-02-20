@@ -37,5 +37,15 @@ jobs:
       - name: Type check
         run: bundle exec rake tc
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+
       - name: Build docs
-        run: bundle exec rake docs
+        run: |
+          cd docs
+          npm install -g pnpm
+          pnpm install
+          cd ..
+          bundle exec rake docs

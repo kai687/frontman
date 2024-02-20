@@ -1,6 +1,6 @@
 {
-  "name": "frontman-experiment",
-  "version": "0.0.1",
+  "name": "frontman-docs",
+  "version": "0.2.0",
   "description": "Documentation for the Frontman static site generator",
   "private": true,
   "scripts": {
@@ -10,5 +10,8 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
     "tailwindcss": "^3.4.1"
+  },
+  "engines": {
+    "node": "^20.0"
   }
 }
