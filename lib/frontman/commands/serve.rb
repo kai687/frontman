@@ -45,7 +45,7 @@ module Frontman
           Frontman::Config.get(:partial_dir),
           content_dir,
           helpers_dir
-        ]).filter { |dir| Dir.exist?(dir) }
+        ]).compact.filter { |dir| Dir.exist?(dir) }
       app.refresh_data_files = true
 
       listener = Listen.to(*listen_to_dirs) do |modified, added|
