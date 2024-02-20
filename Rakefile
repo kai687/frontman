@@ -25,6 +25,13 @@ task :tc do
   `spoom tc`
 end
 
+desc 'Build docs'
+task :docs do
+  `cd docs`
+  `pnpm install`
+  `bundle exec frontman build`
+end
+
 namespace :frontman do
   GEM_VERSION_FILE = File.join(Dir.pwd, 'lib/frontman/version.rb')
   GIT_TAG_URL      = 'https://github.com/algolia/frontman/releases/tag/'
@@ -87,12 +94,6 @@ namespace :frontman do
     # https://github.com/bundler/bundler/blob/master/lib/bundler/gem_helper.rb
     #
     # Rake::Task[:release].invoke
-  end
-
-  desc 'Build docs'
-  task :docs do
-    `cd docs`
-    `bundle exec frontman build`
   end
 end
 
