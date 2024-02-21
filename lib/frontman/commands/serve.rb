@@ -22,7 +22,7 @@ module Frontman
       app = Frontman::App.instance
       Frontman::Bootstrapper.bootstrap_app(app)
       content_dir = Frontman::Config.get(:content_dir)
-      unless content_dir.nil?
+      if Frontman::Config.get(:auto_add_resources)
         Frontman::Bootstrapper.resources_from_dir(content_dir).each do |resource|
           app.sitemap_tree.add(resource)
         end
@@ -45,7 +45,7 @@ module Frontman
           Frontman::Config.get(:partial_dir),
           content_dir,
           helpers_dir
-        ]).compact.filter { |dir| Dir.exist?(dir) }
+        ]).filter { |dir| Dir.exist?(dir) }
       app.refresh_data_files = true
 
       listener = Listen.to(*listen_to_dirs) do |modified, added|

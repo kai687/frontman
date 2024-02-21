@@ -9,6 +9,7 @@ module Frontman
       build_dir: 'build',
       config_path: './config.rb',
       content_dir: 'source',
+      auto_add_resources: true,
       fingerprint_assets: false,
       helpers_dir: 'helpers',
       host: 'localhost',

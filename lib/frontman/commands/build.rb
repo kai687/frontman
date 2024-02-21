@@ -21,7 +21,7 @@ module Frontman
       app = Frontman::App.instance
       Frontman::Bootstrapper.bootstrap_app(app)
       content_dir = Frontman::Config.get(:content_dir)
-      unless content_dir.nil?
+      if Frontman::Config.get(:auto_add_resources)
         Frontman::Bootstrapper.resources_from_dir(content_dir).each do |resource|
           app.sitemap_tree.add(resource)
         end
