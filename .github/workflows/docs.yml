@@ -2,6 +2,9 @@ name: Check docs
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - "docs/content/**/*.html"
   pull_request:
     paths:
       - "docs/content/**/*.html.*"
@@ -47,9 +50,14 @@ jobs:
           args: |
             docs/build --exclude-all-private --base docs/build --exclude gstatic.com --exclude googleapis.com
 
-      - name: Check style guide
-        uses: errata-ai/vale-action@v2.1.0
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          files: docs/content
-          fail_on_error: false
-          vale_flags: --config docs/.vale.ini
+          python_version: "3.12"
+
+      - name: Install Vale
+        run: pip install vale
+
+      - name: Check styles with Vale
+        run: vale
+        working-directory: ./docs
