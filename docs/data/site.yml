@@ -1,5 +1,4 @@
 title: Frontman
 description: Frontman is a static site generator that scales with your needs.
 min_ruby_version: 3.1
-frontman_version: 0.1.1
 issue_link: https://github.com/algolia/frontman/issues/new/choose
