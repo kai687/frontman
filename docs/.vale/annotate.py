@@ -34,7 +34,7 @@ def parse_vale_log(file: TextIOWrapper) -> list[Record]:
     logs: list[Record] = []
 
     for line in file:
-        filename, line, column, severity, check, message = line.split(":")
+        filename, line, column, severity, check, message = line.split(":", 5)
         logs.append(
             Record(
                 filename, line, column, LogLevel.from_string(severity), check, message
