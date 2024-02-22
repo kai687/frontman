@@ -59,7 +59,9 @@ jobs:
         run: pip install vale
 
       - name: Check styles with Vale
-        run: vale --output .vale/vale.tmpl |tee output.log
+        run: |
+          vale --output .vale/vale.tmpl > output.log
+          cat output.log
         working-directory: ./docs
 
       - name: Annotate Vale issues
