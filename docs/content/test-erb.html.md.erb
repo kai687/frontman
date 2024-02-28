@@ -3,7 +3,8 @@ title: Partials with blocks (ERB)
 description: Test for partials with blocks.
 ---
 
-<%= partial_block "test.erb" do <<-EOF
-Hello from the block.
-EOF
-end %>
+<% partial_block("test.erb") do %>
+
+Block content.
+
+<% end %>
