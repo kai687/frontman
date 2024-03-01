@@ -13,7 +13,7 @@ module Frontman
     extend T::Sig
 
     attr_reader :dir, :file, :extension, :path
-    attr_accessor :destination_path, :data, :renderers, :compiled, :file_path
+    attr_accessor :destination_path, :data, :renderers, :compiled, :file_path, :context
 
     class << self
       extend T::Sig
@@ -179,7 +179,7 @@ module Frontman
       content = @content
 
       # We create a new context for each file getting rendered
-      context = Frontman::Context.new
+      @context = Frontman::Context.new
 
       if @compiled
         # If we manage to compile the template (only 1 renderer)
@@ -187,7 +187,7 @@ module Frontman
         content = @renderer.render(
           @compiled,
           content_for_layout,
-          context,
+          @context,
           view_data
         )
       else
@@ -199,7 +199,7 @@ module Frontman
           content = renderer.render(
             compiled,
             content_for_layout,
-            context,
+            @context,
             view_data
           )
         end

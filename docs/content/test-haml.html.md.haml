@@ -3,5 +3,9 @@ title: Partials with blocks (HAML)
 description: Test for partials with blocks.
 ---
 
-- partial_block "test.erb" do
-  = "Hello from the block."
+= partial_block "test.erb" do
+  %ul
+    %li
+      Hello there
+    %li
+      Hello there again!

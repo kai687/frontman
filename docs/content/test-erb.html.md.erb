@@ -3,8 +3,16 @@ title: Partials with blocks (ERB)
 description: Test for partials with blocks.
 ---
 
-<% partial_block("test.erb") do %>
-
-Block content.
-
+<% content = partial_block("test.erb") do %>
+Block content goes here.
+Multi-line works too.
+* and markdown, of course.
 <% end %>
+<%= content %>
+
+<%= partial_block("test.erb") do <<-EOF
+Block content goes here.
+Multi-line works too.
+* and markdown, of course.
+EOF
+end %>
