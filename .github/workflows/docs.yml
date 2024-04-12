@@ -13,8 +13,6 @@ jobs:
   docs:
     name: Check docs quality
     runs-on: ubuntu-latest
-    env:
-      BUNDLE_WITH: "docs"
 
     steps:
       - uses: actions/checkout@v4
