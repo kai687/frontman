@@ -1,0 +1,8 @@
+<div class="border border-gray-300 dark:border-gray-700 rounded-md px-4 py-2">
+  <div class="font-bold dark:font-extrabold tracking-wide mb-6" markdown="0">
+    <%= respond_to?(:label) ? label : "Feature" %>
+  </div>
+  <p class="leading-7">
+    <%= yield %>
+  </p>
+</div>

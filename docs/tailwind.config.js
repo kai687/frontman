@@ -2,7 +2,11 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["src/layouts/layout.slim", "src/partials/*.{haml,erb}"],
+  content: [
+    "src/layouts/layout.slim",
+    "src/partials/*.{haml,erb}",
+    "content/*.{erb,adoc,md,html}",
+  ],
   theme: {
     extend: {
       fontFamily: {

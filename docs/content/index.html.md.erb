@@ -8,7 +8,33 @@ sidebar_label: Get started
 
 ## Highlights
 
-<%= partial 'features.haml' %>
+<% fast = partial('feature.erb', label: 'Fast') do %>
+Frontman can handle sites with more than 1,000 pages with ease.
+It has been the backbone of the Algolia docs for years.
+<% end %>
+
+<% flexible = partial('feature.erb', label: 'Flexible') do %>
+Frontman comes with reasonable defaults,
+but isn't too opinionated how you structure your project.
+Combine templating engines and use the asset pipeline to build your website the way you want.
+<% end %>
+
+<% extensible = partial('feature.erb', label: 'Extensible') do %>
+Frontman is written in Ruby.
+That's why it's easy to add new features or change existing ones.
+<% end %>
+
+<% powerful = partial('feature.erb', label: 'Powerful content features') do %>
+Frontman scales with your needs.
+Extend Markdown or create whole pages programmatically from data files.
+<% end %>
+
+<div class="grid sm:grid-cols-2 gap-4">
+<%= fast %>
+<%= flexible %>
+<%= extensible %>
+<%= powerful %>
+</div>
 
 ## Get started
 

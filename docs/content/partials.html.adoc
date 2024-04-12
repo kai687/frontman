@@ -48,3 +48,31 @@ This is text before a partial is included.
 
 <%= partial 'test.md.erb', section: 'introduction' %>
 ----
+
+== Partials with children
+
+You can _wrap_ partials around elements on your page—similar to using React components with children.
+This can be useful for creating more flexible partials, where the content can't be easily put into variables.
+
+[,erb]
+----
+<!-- views/partials/test.md.erb -->
+
+### Heading for <%= section %>
+
+<%= yield %>
+----
+
+Then, in your Markdown page, assign the partial to a variable,
+and use it like a regular ERB variable.
+
+[,erb]
+----
+This is text before a partial is included.
+
+<% partial_content = partial('test.md.erb', section: 'introduction') do %>
+This text is now rendered _inside_ the partial.
+<% end %>
+
+<%= partial_content %>
+----

@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "docs/content/**/*.html"
+      - "docs/content/**/*.html.*"
   pull_request:
     paths:
       - "docs/content/**/*.html.*"
@@ -64,7 +64,5 @@ jobs:
         working-directory: ./docs
 
       - name: Annotate Vale issues
-        run: |
-          python .vale/annotate.py output.log
-          sed 's/:/ /g output.log' >> $GITHUB_STEP_SUMMARY
+        run: python .vale/annotate.py output.log
         working-directory: ./docs
