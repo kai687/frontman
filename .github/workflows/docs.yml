@@ -60,7 +60,7 @@ jobs:
 
       - name: Check styles with Vale
         run: |
-          vale --output .vale/vale.tmpl > output.log
+          vale --output .vale/vale.tmpl content > output.log
         working-directory: ./docs
 
       - name: Annotate Vale issues
