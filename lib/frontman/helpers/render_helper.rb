@@ -12,24 +12,24 @@ module RenderHelper
   extend T::Sig
 
   sig do
-    params(template: String, data: T.any(Hash, CustomStruct))
+    params(template: String, data: T.any(Hash, CustomStruct), block: T.nilable(T.proc.void))
       .returns(String)
   end
-  def partial(template, data = {})
-    partial_dir = Frontman::Config.get(:partial_dir)
-    r = Frontman::Resource.from_path(
-      File.join(partial_dir, template), nil, false
-    )
-
-    # While rendering, if there's no current page we set it to to the resource
-    # This allows using `content_for` directives in partials
+  def partial(template, data = {}, &block)
     current_page = Frontman::App.instance.current_page
-    Frontman::App.instance.current_page = r if current_page.nil?
+    current_page.context.send(:save_buffer)
 
-    content = r.render(nil, data)
+    partial = File.join(Frontman::Config.get(:partial_dir), template)
+    resource = Frontman::Resource.from_path(partial, nil, false)
+
+    Frontman::App.instance.current_page = resource if current_page.nil?
+
+    ctx = Frontman::Context.new
+    content = resource.render(ctx.get_content_buffer(content, &(block if Kernel.block_given?)),
+                              data)
 
     Frontman::App.instance.current_page = current_page
-
+    current_page.context.send(:restore_buffer)
     content
   end
 

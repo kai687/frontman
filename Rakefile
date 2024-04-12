@@ -22,7 +22,7 @@ task default: %i[spec rubocop tc]
 
 desc 'Type check with sorbet (via spoom)'
 task :tc do
-  `spoom tc`
+  `spoom srb tc`
 end
 
 desc 'Build docs'
