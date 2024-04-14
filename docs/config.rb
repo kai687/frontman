@@ -8,6 +8,12 @@ Frontman::Config.set :layout_dir, 'src/layouts'
 Frontman::Config.set :partial_dir, 'src/partials'
 Frontman::Config.set :port, 6969
 
+if ENV['GITHUB_ACTIONS']
+  Frontman::Config.set :base_url, '/frontman'
+else
+  Frontman::Config.set :base_url, ''
+end
+
 register_data_dirs ['data']
 register_helper_dir 'src/helpers'
 

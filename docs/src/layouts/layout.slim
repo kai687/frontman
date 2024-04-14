@@ -5,6 +5,7 @@
 - sorted = sorted_sitemap
 - current_page_index = sorted.find_index(current_tree)
 - previous_page, next_page = neighbors(sorted, current_page_index)
+- base_url = Frontman::Config.get(:base_url)
 
 doctype html
 html lang="en"
@@ -15,14 +16,14 @@ html lang="en"
     meta name="generator" content="Frontman #{Frontman::VERSION}"
     meta name="description" content="#{description}"
     meta name="viewport" content="width=device-width,initial-scale=1.0"
-    link rel="stylesheet" href="/styles.css"
-    link rel="stylesheet" href="/syntax.css" media="(prefers-color-scheme: light)"
-    link rel="stylesheet" href="/syntax-dark.css" media="(prefers-color-scheme: dark)"
+    link rel="stylesheet" href="#{base_url}/styles.css"
+    link rel="stylesheet" href="#{base_url}/syntax.css" media="(prefers-color-scheme: light)"
+    link rel="stylesheet" href="#{base_url}/syntax-dark.css" media="(prefers-color-scheme: dark)"
     link rel="preconnect" href="https://fonts.googleapis.com"
     link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=true
     link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet"
     link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"
-    script src="/script.js" type="module" defer="true"
+    script src="#{base_url}/script.js" type="module" defer="true"
   body.text-gray-800.bg-gray-50.dark:bg-gray-900.dark:text-gray-200.antialiased.scroll-smooth
     a href = "#content" class = "block absolute top-0 left-0 right-0 p-6 bg-gray-50 dark:bg-gray-950 -translate-x-full font-medium focus:translate-x-0"
       | Skip to content
