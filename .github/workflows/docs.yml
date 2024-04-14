@@ -51,7 +51,7 @@ jobs:
         with:
           fail: true
           args: |
-            docs/build --exclude-all-private --base docs/build --exclude gstatic.com --exclude googleapis.com
+            docs/build --exclude-all-private --base docs/build/frontman --exclude gstatic.com --exclude googleapis.com
 
       - name: Set up Python
         uses: actions/setup-python@v5
