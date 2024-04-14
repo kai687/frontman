@@ -10,24 +10,23 @@ sidebar_label: Get started
 ## Highlights
 
 <% fast = partial('feature.erb', label: 'Fast') do %>
-Frontman can handle sites with more than 1,000 pages with ease.
+Frontman handles sites with more than 1,000 pages with ease.
 It has been the backbone of the Algolia docs for years.
 <% end %>
 
 <% flexible = partial('feature.erb', label: 'Flexible') do %>
-Frontman comes with reasonable defaults,
-but isn't too opinionated how you structure your project.
-Combine templating engines and use the asset pipeline to build your website the way you want.
+Frontman has reasonable defaults,
+but gives you the freedom of building your website the way you want.
 <% end %>
 
 <% extensible = partial('feature.erb', label: 'Extensible') do %>
 Frontman is written in Ruby.
-That's why it's easy to add new features or change existing ones.
+It's easy to add new features or change existing ones.
 <% end %>
 
 <% powerful = partial('feature.erb', label: 'Powerful content features') do %>
 Frontman scales with your needs.
-Extend Markdown or create whole pages programmatically from data files.
+It supports content reuse, extensible rendering, and data files.
 <% end %>
 
 <div class="grid sm:grid-cols-2 gap-4">
@@ -48,6 +47,7 @@ bundle add frontman-ssg --version '~> <%= Frontman::VERSION %>'
 ```
 
 > You can create a new `Gemfile` by running: `bundle init`.
+{:.tip}
 
 ## Create a new project
 
@@ -59,6 +59,7 @@ frontman init NEW_PROJECT
 ```
 
 > You can create the new site in the current directory with `frontman init .`.
+{:.tip}
 
 ## Start developing your site
 
