@@ -1,0 +1,62 @@
+name: Check docs
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "docs/content/**/*.html.*"
+  pull_request:
+    paths:
+      - "docs/content/**/*.html.*"
+
+jobs:
+  build:
+    name: Check docs quality
+    runs-on: ubuntu-latest
+
+    env:
+      BUNDLE_WITH: "docs"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+
+      - name: Install dependencies
+        working-directory: ./docs
+        run: |
+          npm install --global pnpm
+          pnpm install --frozen-lockfile
+
+      - name: Build docs
+        run: bundle exec rake docs
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: docs/build
+
+  deploy:
+    name: Deploy the docs
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GH pages
+        id: deployment
+        uses: actions/deploy-pages@v2
