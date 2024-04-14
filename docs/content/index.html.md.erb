@@ -51,15 +51,14 @@ bundle add frontman-ssg --version '~> <%= Frontman::VERSION %>'
 
 ## Create a new project
 
-The `frontman init` command scaffolds a basic project for you to get started.
-To create a new project in the directory `<NEW_PROJECT>`, run:
+The `frontman init` creates a new project from a template to get you started.
+To create a new project in the directory `NEW_PROJECT`, run:
 
 ```sh
-frontman init <NEW_PROJECT>
+frontman init NEW_PROJECT
 ```
 
-> If you started  a new project with `bundle init`, you can create the new site in the current directory.
-> Run `frontman init .`
+> You can create the new site in the current directory with `frontman init .`.
 
 ## Start developing your site
 
@@ -67,7 +66,7 @@ The `frontman serve` command starts a development server for you to preview your
 To start it, run:
 
 ```sh
-cd <NEW_PROJECT>
+cd NEW_PROJECT
 bundle install
 bundle exec frontman serve
 ```

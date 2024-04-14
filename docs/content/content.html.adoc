@@ -8,10 +8,10 @@ position: 1
 
 Frontman looks for your content files in the `:content_dir`
 directory, which is `source` by default.
-This means, Frontman converts all files with recognized file extensions to HTML.
+Frontman converts all files with recognized file extensions to HTML.
 To change the content directory, see <<configuration#content, Configuration>>.
 
-For a more custom setup, set the `:auto_add_resources` option to `false`
+For a more custom setup, set the `:auto_add_resources` option to `false`,
 and use the `Frontman::Bootstrapper.resources_from_dir` method to add resources to the sitemap.
 
 Add the following code to your `config.rb` file:
