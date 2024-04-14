@@ -54,6 +54,7 @@ Metrics/AbcSize:
     - "lib/frontman/commands/**/*"
     - "lib/frontman/resource.rb"
     - "docs/src/renderers/headerlinks.rb"
+    - "docs/src/renderers/wikilinks.rb"
 
 Style/ClassVars:
   Exclude:
@@ -102,6 +103,10 @@ Naming/FileName:
   Exclude:
     - "spec/**/*"
     - "lib/frontman/helpers/**/*"
+
+Naming/MethodParameterName:
+  Exclude:
+    - "docs/src/renderers/wikilinks.rb"
 
 Naming/BlockForwarding:
   EnforcedStyle: explicit

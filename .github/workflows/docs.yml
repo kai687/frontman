@@ -4,12 +4,12 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "docs/content/**/*.html.*"
+      - "docs/**"
     branches:
       - master
   pull_request:
     paths:
-      - "docs/content/**/*.html.*"
+      - "docs/**"
 
 jobs:
   docs:
