@@ -72,8 +72,14 @@ module Kramdown
           end
 
           @title = label.nil? ? resource.data.title : label
-          @url = page.final_url
+          base_url = Frontman::Config.get(:base_url)
+          @url = base_url + page.final_url
         end
+      end
+
+      def add_link(el, href, title, alt_text = nil, ial = nil)
+        href = "#{Frontman::Config.get(:base_url)}#{href}" if href.start_with?('/')
+        super(el, href, title, alt_text, ial)
       end
     end
   end
