@@ -100,6 +100,9 @@ module.exports = {
               fontWeight: theme("fontWeight.semibold"),
               letterSpacing: "0.05ch",
             },
+            th: {
+              textAlign: "left",
+            },
           },
         },
         invert: {
