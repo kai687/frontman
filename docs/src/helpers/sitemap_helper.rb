@@ -23,7 +23,8 @@ module SitemapHelper
 
   # gets the link
   def link_to(page)
-    root?(page) ? '/' : page&.final_url
+    base_url = Frontman::Config.get :base_url
+    root?(page) ? "#{base_url}/" : "#{base_url}/#{page&.final_url}"
   end
 
   # gets neighbors of a page in the sitemap tree
