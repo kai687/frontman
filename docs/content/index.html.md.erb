@@ -3,7 +3,8 @@ sidebar_label: Get started
 ---
 
 <% content_for :before_content do %>
-<img src="/frontman-logo.svg" alt="" class="mx-auto">
+<% img_url = "#{Frontman::Config.get(:base_url)}/frontman-logo.svg"
+<img src="<%= img_url %>" alt="" class="mx-auto">
 <% end %>
 
 ## Highlights
