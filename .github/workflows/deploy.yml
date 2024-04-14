@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    name: Check docs quality
+    name: Build the docs
     runs-on: ubuntu-latest
 
     env:
