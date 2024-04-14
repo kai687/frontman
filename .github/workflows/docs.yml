@@ -46,12 +46,13 @@ jobs:
         run: bundle exec ruby validate_frontmatter.rb
         working-directory: ./docs
 
-      - name: Check links
-        uses: lycheeverse/lychee-action@v1.9.3
-        with:
-          fail: true
-          args: |
-            docs/build --exclude-all-private --base docs/build/frontman --exclude gstatic.com --exclude googleapis.com
+      # TODO: Lychee doesn't work with the GH pages urls.
+      # - name: Check links
+      #   uses: lycheeverse/lychee-action@v1.9.3
+      #   with:
+      #     fail: true
+      #     args: |
+      #       docs/build --exclude-all-private --base docs/build --exclude gstatic.com --exclude googleapis.com
 
       - name: Set up Python
         uses: actions/setup-python@v5
