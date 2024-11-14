@@ -1,11 +1,11 @@
 # typed: true
 # frozen_string_literal: true
 
-require 'frontman/builder/file'
-require 'frontman/config'
-require 'frontman/concerns/dispatch_events'
-require 'frontman/iterator'
-require 'sorbet-runtime'
+require "frontman/builder/file"
+require "frontman/config"
+require "frontman/concerns/dispatch_events"
+require "frontman/iterator"
+require "sorbet-runtime"
 
 module Frontman
   module Builder
@@ -55,18 +55,18 @@ module Frontman
       end
       def build_assets(assets_to_build)
         # We need to go through ERB files at the end so assets_manifest filled
-        assets_to_build.sort_by! { |f| f.end_with?('.erb') ? 1 : 0 }
+        assets_to_build.sort_by! { |f| f.end_with?(".erb") ? 1 : 0 }
         assets_to_build.map do |path|
-          public_dir = ::File.join(@public_dir, '')
-          if path.end_with?('.erb')
+          public_dir = ::File.join(@public_dir, "")
+          if path.end_with?(".erb")
             build_file = build_from_erb(
               path,
-              path.sub(public_dir, '').gsub('.erb', '')
+              path.sub(public_dir, "").gsub(".erb", "")
             )
           else
             build_file = build_from_asset(
               path,
-              path.sub(public_dir, '')
+              path.sub(public_dir, "")
             )
           end
 
@@ -196,7 +196,7 @@ module Frontman
         destination = build_directory + dir
         FileUtils.mkdir_p(destination)
 
-        build_directory + destination_path.sub(%r{^/}, '')
+        build_directory + destination_path.sub(%r{^/}, "")
       end
 
       sig { params(resource: Frontman::Resource).returns(String) }

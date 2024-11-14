@@ -1,10 +1,10 @@
 # typed: true
 # frozen_string_literal: true
 
-require 'frontman/builder/builder'
-require 'frontman/builder/mapping'
-require 'frontman/toolbox/timer'
-require 'sorbet-runtime'
+require "frontman/builder/builder"
+require "frontman/builder/mapping"
+require "frontman/toolbox/timer"
+require "sorbet-runtime"
 
 module Frontman
   module Builder
@@ -21,7 +21,7 @@ module Frontman
       end
       def self.output(builder, mapping, timer, new_files = [])
         puts JSON.pretty_generate(mapping.all)
-        puts '================================================================='
+        puts "================================================================="
         puts "Previous build size : #{builder.current_build_files.size} files"
         puts "Current build size  : #{new_files.size} files"
 

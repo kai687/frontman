@@ -1,12 +1,12 @@
 # typed: true
 # frozen_string_literal: false
 
-require 'frontman/sitemap_tree'
-require 'frontman/data_store'
-require 'frontman/errors'
-require 'frontman/helpers/url_helper'
-require 'singleton'
-require 'sorbet-runtime'
+require "frontman/sitemap_tree"
+require "frontman/data_store"
+require "frontman/errors"
+require "frontman/helpers/url_helper"
+require "singleton"
+require "sorbet-runtime"
 
 module Frontman
   class App
@@ -76,7 +76,7 @@ module Frontman
       Frontman::Config.set(:helpers_dir, dir)
       register_helpers(
         Frontman::Bootstrapper.find_helpers_in(
-          File.join('.', dir)
+          File.join(".", dir)
         )
       )
     end
@@ -110,7 +110,7 @@ module Frontman
 
     sig { params(dirs: T.any(Array, Hash)).void }
     def register_data_dirs(dirs)
-      dirs = dirs.to_h { |dir| [dir.split('/').last, dir] } if dirs.is_a?(Array)
+      dirs = dirs.to_h { |dir| [dir.split("/").last, dir] } if dirs.is_a?(Array)
 
       dirs.each do |name, dir|
         define_singleton_method(name) do
@@ -150,7 +150,7 @@ module Frontman
 
     sig { params(file_path: String).void }
     def import_config(file_path)
-      if !file_path.end_with?('.rb') && !File.exist?(file_path)
+      if !file_path.end_with?(".rb") && !File.exist?(file_path)
         return import_config("#{file_path}.rb")
       end
 

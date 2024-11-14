@@ -1,10 +1,10 @@
 # typed: true
 # frozen_string_literal: true
 
-require 'date'
-require 'pathname'
-require 'sorbet-runtime'
-require 'yaml'
+require "date"
+require "pathname"
+require "sorbet-runtime"
+require "yaml"
 
 module Frontman
   class DataStoreFile

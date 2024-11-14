@@ -1,9 +1,9 @@
 # typed: true
 # frozen_string_literal: true
 
-require 'fileutils'
-require 'json'
-require 'sorbet-runtime'
+require "fileutils"
+require "json"
+require "sorbet-runtime"
 
 module Frontman
   module Builder

@@ -1,25 +1,25 @@
 # typed: true
 # frozen_string_literal: true
 
-require 'sorbet-runtime'
+require "sorbet-runtime"
 
 module Frontman
   class Config
     @defaults = {
-      build_dir: 'build',
-      config_path: './config.rb',
-      content_dir: 'source',
+      build_dir: "build",
+      config_path: "./config.rb",
+      content_dir: "source",
       auto_add_resources: true,
       fingerprint_assets: false,
-      helpers_dir: 'helpers',
-      host: 'localhost',
-      layout_dir: 'views/layouts',
+      helpers_dir: "helpers",
+      host: "localhost",
+      layout_dir: "views/layouts",
       parallel: true,
-      partial_dir: 'views/partials',
+      partial_dir: "views/partials",
       port: 4568,
       port_retries: 3,
       processor_count: 1,
-      public_dir: 'public'
+      public_dir: "public"
     }
     class << self
       extend T::Sig

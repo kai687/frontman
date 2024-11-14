@@ -1,8 +1,8 @@
 # typed: true
 # frozen_string_literal: false
 
-require 'haml'
-require 'frontman/renderers/renderer'
+require "haml"
+require "frontman/renderers/renderer"
 
 module Frontman
   class HamlRenderer < Renderer
@@ -33,7 +33,7 @@ module Frontman
 
       @buffer[context.buffer_hash] = haml_locals[:_hamlout].buffer
       # empty the buffer so we can capture everything from the new render
-      haml_locals[:_hamlout].buffer = ''
+      haml_locals[:_hamlout].buffer = ""
       context.instance_variable_set(:@_haml_locals, haml_locals)
     end
 

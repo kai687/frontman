@@ -1,8 +1,8 @@
 # typed: true
 # frozen_string_literal: false
 
-require 'erubis'
-require 'frontman/renderers/renderer'
+require "erubis"
+require "frontman/renderers/renderer"
 
 module Frontman
   class ErbRenderer < Frontman::Renderer
@@ -13,7 +13,7 @@ module Frontman
 
     sig { params(layout: String).returns(Erubis::Eruby) }
     def compile(layout)
-      Erubis::Eruby.new(layout, bufvar: '@_erbout')
+      Erubis::Eruby.new(layout, bufvar: "@_erbout")
     end
 
     sig do
@@ -39,7 +39,7 @@ module Frontman
       return unless buffer
 
       @buffer[context.buffer_hash] = buffer
-      context.instance_variable_set(:@_erbout, '')
+      context.instance_variable_set(:@_erbout, "")
     end
 
     sig { params(context: Frontman::Context).void }

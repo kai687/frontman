@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'kramdown/parser/kramdown'
-require 'kramdown-parser-gfm'
+require "kramdown/parser/kramdown"
+require "kramdown-parser-gfm"
 
 module Kramdown
   module Parser
@@ -11,7 +11,8 @@ module Kramdown
         super
 
         # Override existing Table parser to use our own start Regex which adds a check for wikilinks
-        @@parsers.delete(:table) # Data(:table, TABLE_START, nil, "parse_table")
+        # Data(:table, TABLE_START, nil, "parse_table")
+        @@parsers.delete(:table)
         self.class.define_parser(:table, TABLE_START)
 
         @span_parsers.unshift(:wikilinks)
@@ -22,11 +23,13 @@ module Kramdown
       # Regex test suite: https://regexr.com/5rb9q
       # Fail for wikilinks in the same line
       TABLE_PIPE_CHECK = /^(?:\|(?!\[\[)|[^\[]*?(?!\[\[)[^\[]*?\||.*?(?:\[\[[^\]]+\]\]).*?\|)/
-      TABLE_LINE = /#{TABLE_PIPE_CHECK}.*?\n/ # Unchanged
-      TABLE_START = /^#{Kramdown::OPT_SPACE}(?=\S)#{TABLE_LINE}/ # Unchanged
+      # Unchanged
+      TABLE_LINE = /#{TABLE_PIPE_CHECK}.*?\n/
+      # Unchanged
+      TABLE_START = /^#{Kramdown::OPT_SPACE}(?=\S)#{TABLE_LINE}/
 
       WIKILINKS_MATCH = /\[\[(.*?)\]\]/
-      define_parser(:wikilinks, WIKILINKS_MATCH, '\[\[')
+      define_parser(:wikilinks, WIKILINKS_MATCH, "\\[\\[")
 
       def parse_wikilinks
         line_number = @src.current_line_number
@@ -53,7 +56,7 @@ module Kramdown
       # [[page_name|Optional title]]
       class Wikilink
         def self.parse(text)
-          url, label = text.split('|', 2)
+          url, label = text.split("|", 2)
           new(url.downcase, label)
         end
 
@@ -65,10 +68,12 @@ module Kramdown
           raise "No page exists at `#{url}`. Try a different path." unless resource
 
           if label.nil? && resource.data.title.empty?
-            raise <<-END_OF_ERROR
+            raise(
+              <<-END_OF_ERROR
               Page #{resource.file_path} doesn't have a `title:` frontmatter.
               Add an explicit link label `[[url|text]]`"
-            END_OF_ERROR
+              END_OF_ERROR
+            )
           end
 
           @title = label.nil? ? resource.data.title : label
@@ -78,7 +83,7 @@ module Kramdown
       end
 
       def add_link(el, href, title, alt_text = nil, ial = nil)
-        href = "#{Frontman::Config.get(:base_url)}#{href}" if href.start_with?('/')
+        href = "#{Frontman::Config.get(:base_url)}#{href}" if href.start_with?("/")
         super(el, href, title, alt_text, ial)
       end
     end

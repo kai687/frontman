@@ -1,7 +1,7 @@
 # typed: false
 # frozen_string_literal: true
 
-require 'ostruct'
+require "ostruct"
 
 class CustomStruct < OpenStruct
   def respond_to_missing?(method_id, *_arguments)

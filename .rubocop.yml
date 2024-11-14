@@ -7,30 +7,24 @@ AllCops:
     - "vendor/**/*"
     - "spec/frontman/mocks/config.rb"
     - "bin/**"
-
 Style/Lambda:
   Enabled: false
-
 Style/OptionalBooleanParameter:
   Exclude:
     - "lib/frontman/resource.rb"
     - "lib/frontman/sitemap_tree.rb"
-
 Gemspec/RequiredRubyVersion:
   Exclude:
     - "frontman-ssg.gemspec"
-
 Style/Documentation:
   Exclude:
     - "spec/**/*"
     - "test/**/*"
     - "lib/**/*"
     - "project-templates/**/*"
-
 Lint/MissingSuper:
   Exclude:
     - "lib/**/*"
-
 Metrics/MethodLength:
   Exclude:
     - "lib/frontman/sitemap_tree.rb"
@@ -43,7 +37,6 @@ Metrics/MethodLength:
     - "lib/frontman/helpers/render_helper.rb"
     - "docs/src/renderers/wikilinks.rb"
     - "docs/src/renderers/headerlinks.rb"
-
 Metrics/AbcSize:
   Exclude:
     - "lib/frontman/context.rb"
@@ -55,7 +48,6 @@ Metrics/AbcSize:
     - "lib/frontman/resource.rb"
     - "docs/src/renderers/headerlinks.rb"
     - "docs/src/renderers/wikilinks.rb"
-
 Style/ClassVars:
   Exclude:
     - "lib/frontman/sitemap_tree.rb"
@@ -64,66 +56,58 @@ Style/ClassVars:
     - "lib/frontman/resource.rb"
     - "lib/frontman/data_store_file.rb"
     - "spec/frontman/sitemap_tree_spec.rb"
-
 Metrics/ClassLength:
   Exclude:
     - "lib/frontman/app.rb"
     - "lib/frontman/builder/builder.rb"
     - "lib/frontman/resource.rb"
     - "lib/frontman/sitemap_tree.rb"
-
 Style/ConditionalAssignment:
   Exclude:
     - "lib/frontman/builder/builder.rb"
-
 Metrics/PerceivedComplexity:
   Exclude:
     - "lib/frontman/resource.rb"
     - "lib/frontman/commands/serve.rb"
-
 Metrics/CyclomaticComplexity:
   Exclude:
     - "lib/frontman/resource.rb"
     - "lib/frontman/commands/serve.rb"
-
 Metrics/BlockLength:
   Exclude:
     - "lib/frontman/commands/serve.rb"
     - "spec/**/*"
     - "*.gemspec"
-
 Layout/LineLength:
   Max: 100
   Exclude:
     - "frontman-ssg.gemspec"
     - "spec/**/*"
     - "lib/frontman/context.rb"
-
 Naming/FileName:
   Exclude:
     - "spec/**/*"
     - "lib/frontman/helpers/**/*"
-
 Naming/MethodParameterName:
   Exclude:
     - "docs/src/renderers/wikilinks.rb"
-
 Naming/BlockForwarding:
   EnforcedStyle: explicit
-
 Metrics/ParameterLists:
   Exclude:
     - "lib/frontman/app.rb"
-
 Lint/SuppressedException:
   Exclude:
     - "lib/frontman/commands/serve.rb"
-
 Gemspec/RequireMFA:
   Enabled: false
-
 Style/OpenStructUse:
   Enabled: false
-
 Style/ArgumentsForwarding:
   Enabled: false
+Style/StringLiterals:
+  EnforcedStyle: "double_quotes"
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: "no_space"
+Layout/SpaceInLambdaLiteral:
+  EnforcedStyle: "require_space"

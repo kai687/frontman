@@ -1,11 +1,11 @@
 # typed: false
 # frozen_string_literal: false
 
-require 'frontman/app'
-require 'frontman/concerns/forward_calls_to_app'
-require 'frontman/config'
-require 'securerandom'
-require 'sorbet-runtime'
+require "frontman/app"
+require "frontman/concerns/forward_calls_to_app"
+require "frontman/config"
+require "securerandom"
+require "sorbet-runtime"
 
 module Frontman
   class Context
@@ -59,7 +59,7 @@ module Frontman
       return if current_page.nil?
 
       key = key.to_sym
-      current_page.content_blocks[key] ||= ''
+      current_page.content_blocks[key] ||= ""
       if current_page.content_blocks[key].frozen?
         current_page.content_blocks[key] = current_page.content_blocks[key].dup
       end
@@ -95,7 +95,7 @@ module Frontman
       # hack the buffer of haml that is set inside the context by haml
       save_buffer
 
-      content ||= ''
+      content ||= ""
 
       if block_given?
         # We don't save the content of the yield, it will be saved in the buffer

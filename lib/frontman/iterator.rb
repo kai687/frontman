@@ -1,7 +1,7 @@
 # typed: false
 # frozen_string_literal: true
 
-require 'parallel'
+require "parallel"
 
 module Frontman
   class Iterator

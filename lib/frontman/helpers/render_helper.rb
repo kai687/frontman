@@ -1,12 +1,12 @@
 # typed: true
 # frozen_string_literal: true
 
-require 'frontman/config'
-require 'frontman/context'
-require 'frontman/renderers/markdown_renderer'
-require 'frontman/renderers/erb_renderer'
-require 'frontman/resource'
-require 'sorbet-runtime'
+require "frontman/config"
+require "frontman/context"
+require "frontman/renderers/markdown_renderer"
+require "frontman/renderers/erb_renderer"
+require "frontman/resource"
+require "sorbet-runtime"
 
 module RenderHelper
   extend T::Sig

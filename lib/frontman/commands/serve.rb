@@ -1,24 +1,24 @@
 # frozen_string_literal: false
 
-require 'socket'
-require 'thor'
-require 'sinatra/base'
-require 'better_errors'
-require 'listen'
-require 'rack/livereload'
-require 'frontman/app'
-require 'frontman/bootstrapper'
-require 'frontman/builder/asset_pipeline'
-require 'frontman/config'
-require 'frontman/errors'
-require 'frontman/livereload'
-require 'frontman/resource'
+require "socket"
+require "thor"
+require "sinatra/base"
+require "better_errors"
+require "listen"
+require "rack/livereload"
+require "frontman/app"
+require "frontman/bootstrapper"
+require "frontman/builder/asset_pipeline"
+require "frontman/config"
+require "frontman/errors"
+require "frontman/livereload"
+require "frontman/resource"
 
 module Frontman
   class CLI < Thor
-    desc 'serve', 'Start a local preview server'
+    desc "serve", "Start a local preview server"
     def serve
-      Frontman::Config.set(:mode, 'serve')
+      Frontman::Config.set(:mode, "serve")
       app = Frontman::App.instance
       Frontman::Bootstrapper.bootstrap_app(app)
       content_dir = Frontman::Config.get(:content_dir)
@@ -50,15 +50,15 @@ module Frontman
 
       listener = Listen.to(*listen_to_dirs) do |modified, added|
         (added + modified).each do |m|
-          resource_path = m.sub("#{Dir.pwd}/", '')
+          resource_path = m.sub("#{Dir.pwd}/", "")
           begin
             if resource_path.start_with?(helpers_dir)
-              helper_name = File.basename(resource_path).gsub('.rb', '')
+              helper_name = File.basename(resource_path).gsub(".rb", "")
               load("./#{resource_path}")
               app.register_helpers(
                 [{
                   path: File.join(Dir.pwd, resource_path),
-                  name: helper_name.split('_').collect(&:capitalize).join
+                  name: helper_name.split("_").collect(&:capitalize).join
                 }]
               )
             elsif resource_path.start_with?(*listen_to_dirs)
@@ -70,7 +70,7 @@ module Frontman
               end
 
               r&.parse_resource(true)
-            elsif resource_path.end_with?('.rb')
+            elsif resource_path.end_with?(".rb")
               load("./#{resource_path}")
             end
             wss.reload_client
@@ -93,7 +93,7 @@ module Frontman
 
         (1 + num_retries).times do
           begin
-            port_in_use = Socket.tcp('localhost', p, connect_timeout: 3) { true }
+            port_in_use = Socket.tcp("localhost", p, connect_timeout: 3) { true }
           rescue StandardError
             port_in_use = false
           end
@@ -134,14 +134,14 @@ class FrontmanServer < Sinatra::Base
   use BetterErrors::Middleware
   BetterErrors.application_root = Dir.pwd
 
-  get '*' do |path|
+  get "*" do |path|
     app = Frontman::App.instance
     return redirect to app.get_redirect(path), 302 if app.get_redirect(path)
 
     tree = app.sitemap_tree.from_url(path)
     if tree&.resource
       extension = File.extname(tree.resource.destination_path)
-      headers['Content-Type'] = Rack::Mime.mime_type(extension)
+      headers["Content-Type"] = Rack::Mime.mime_type(extension)
       tree.resource.render
     else
       halt 404

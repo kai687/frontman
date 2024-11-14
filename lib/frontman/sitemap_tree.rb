@@ -1,8 +1,8 @@
 # typed: false
 # frozen_string_literal: true
 
-require 'frontman/errors'
-require 'sorbet-runtime'
+require "frontman/errors"
+require "sorbet-runtime"
 
 module Frontman
   class SitemapTree
@@ -28,7 +28,7 @@ module Frontman
 
       sig { params(url: String).returns(String) }
       def format_url(url)
-        url.chomp('index.html').gsub('.html', '')
+        url.chomp("index.html").gsub(".html", "")
       end
     end
 
@@ -37,7 +37,7 @@ module Frontman
     end
 
     def add(resource)
-      return if resource.destination_path.end_with?('.js', '.css', '.yml')
+      return if resource.destination_path.end_with?(".js", ".css", ".yml")
 
       url = format_url(resource.destination_path)
       existing_resource = from_url(url)&.resource
@@ -49,7 +49,7 @@ module Frontman
       raise ExistingRedirectError.create(resource, url) if Frontman::App.instance.get_redirect(url)
 
       SitemapTree.resources.push(resource)
-      parts = url.split('/')
+      parts = url.split("/")
       used_parts = []
       add_parts(parts, used_parts, resource)
     end
@@ -77,7 +77,7 @@ module Frontman
     end
 
     def format_url(url)
-      url.chomp('index.html').gsub('.html', '')
+      url.chomp("index.html").gsub(".html", "")
     end
 
     def final_url
@@ -89,9 +89,9 @@ module Frontman
     end
 
     def from_url(url)
-      return self if url == '/'
+      return self if url == "/"
 
-      @@urls[url.gsub(%r{^/}, '').gsub(%r{/$}, '').to_sym]
+      @@urls[url.gsub(%r{^/}, "").gsub(%r{/$}, "").to_sym]
     end
 
     def ancestor(part, level = 0)
@@ -145,7 +145,7 @@ module Frontman
       if child.nil?
         child = SitemapTree.new(current_part)
         child.parent = self
-        url = used_parts.join('/')
+        url = used_parts.join("/")
         child.url = url
         @@urls[url.to_sym] = child
         child.position = @children.length
@@ -183,7 +183,7 @@ module Frontman
 
     sig { params(space: Integer).void }
     def pretty_print(space)
-      spaces = space >= 0 ? ' ' * space : ''
+      spaces = space >= 0 ? " " * space : ""
 
       print("#{spaces}#{@url_part}\n") if @url_part
 

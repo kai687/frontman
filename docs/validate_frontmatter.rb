@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'frontman/app'
-require 'frontman/bootstrapper'
-require 'json-schema'
-require 'yaml'
+require "frontman/app"
+require "frontman/bootstrapper"
+require "json-schema"
+require "yaml"
 
 # JSON schema validation of frontmatter data
 class Validator
@@ -11,9 +11,10 @@ class Validator
 
   def self.unique_titles(path, title)
     if @unique.include?(title)
-      puts "Duplicate title detected in #{path}: #{title}"
+      puts("Duplicate title detected in #{path}: #{title}")
       return false
     end
+
     @unique << title
     true
   end
@@ -23,18 +24,18 @@ class Validator
   end
 
   def initialize
-    @schema = YAML.safe_load_file('schema.yml')
+    @schema = YAML.safe_load_file("schema.yml")
   end
 
   def validate(page)
     resource = page.resource
     data = resource.data.to_h || {}
-    path = resource.file_path || ''
+    path = resource.file_path || ""
 
     begin
       JSON::Validator.validate!(@schema, data)
     rescue JSON::Schema::ValidationError => e
-      puts "#{e.message} for #{path}"
+      puts("#{e.message} for #{path}")
       return false
     end
 
@@ -54,7 +55,7 @@ val = Validator.new
 offense = false
 
 app.sitemap_tree.get_all_pages.each do |page|
-  next if page.url == 'sitemap.xml'
+  next if page.url == "sitemap.xml"
   # Index page doesn't use title and description frontmatter,
   # it uses site-wide data from `data/site.yml` instead.
   next if page == app.sitemap_tree
@@ -62,4 +63,4 @@ app.sitemap_tree.get_all_pages.each do |page|
   offense = true unless val.validate(page)
 end
 
-puts 'No issues with your frontmatter!' unless offense
+puts("No issues with your frontmatter!") unless offense

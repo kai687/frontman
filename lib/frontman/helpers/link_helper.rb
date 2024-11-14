@@ -1,9 +1,9 @@
 # typed: strict
 # frozen_string_literal: false
 
-require 'htmlentities'
-require 'singleton'
-require 'sorbet-runtime'
+require "htmlentities"
+require "singleton"
+require "sorbet-runtime"
 
 module LinkHelper
   extend T::Sig
@@ -14,7 +14,7 @@ module LinkHelper
   end
 
   sig { params(str: String, salt: String).returns(String) }
-  def generate_id(str, salt = '')
+  def generate_id(str, salt = "")
     id = slugify(str)
     salted_id = salt.to_s + id
 
@@ -32,9 +32,9 @@ module LinkHelper
   def slugify(string)
     HTMLEntities.new
                 .decode(string)
-                .gsub(%r{</?[^>]*>}, '')
-                .gsub(/\s/, '-')
-                .gsub(%r{[\[\]()/",`'&<>.*]}, '')
+                .gsub(%r{</?[^>]*>}, "")
+                .gsub(/\s/, "-")
+                .gsub(%r{[\[\]()/",`'&<>.*]}, "")
                 .downcase
   end
 end

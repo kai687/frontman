@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-require 'singleton'
+require "singleton"
 
 module Frontman
   class Renderer
@@ -9,7 +9,7 @@ module Frontman
     include Singleton
 
     def compile(_layout)
-      raise('Should be implemented in child classes')
+      raise("Should be implemented in child classes")
     end
 
     sig do
@@ -29,7 +29,7 @@ module Frontman
     end
 
     def render_content(_compiled, _content, _scope, _data)
-      raise('Should be implemented in child classes')
+      raise("Should be implemented in child classes")
     end
   end
 end

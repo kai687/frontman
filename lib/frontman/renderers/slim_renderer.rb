@@ -1,8 +1,8 @@
 # typed: true
 # frozen_string_literal: false
 
-require 'slim'
-require 'frontman/renderers/renderer'
+require "slim"
+require "frontman/renderers/renderer"
 
 module Frontman
   class SlimRenderer < Renderer

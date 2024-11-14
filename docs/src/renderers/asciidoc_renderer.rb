@@ -1,8 +1,8 @@
 # typed: true
 # frozen_string_literal: true
 
-require 'asciidoctor'
-require 'frontman/renderers/renderer'
+require "asciidoctor"
+require "frontman/renderers/renderer"
 
 module Frontman
   # A custom renderer for the AciiDoc format
@@ -12,7 +12,7 @@ module Frontman
         layout,
         # Support including content from other directories.
         safe: :unsafe,
-        attributes: ['source-highlighter=rouge', 'sectlinks']
+        attributes: ["source-highlighter=rouge", "sectlinks"]
       )
     end
 

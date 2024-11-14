@@ -1,12 +1,12 @@
 # typed: false
 # frozen_string_literal: true
 
-require 'frontman/renderers/renderer_resolver'
-require 'frontman/custom_struct'
-require 'frontman/context'
-require 'frontman/app'
-require 'sorbet-runtime'
-require 'yaml/front-matter'
+require "frontman/renderers/renderer_resolver"
+require "frontman/custom_struct"
+require "frontman/context"
+require "frontman/app"
+require "sorbet-runtime"
+require "yaml/front-matter"
 
 module Frontman
   class Resource
@@ -34,11 +34,11 @@ module Frontman
       def from_path(file_path, destination_path = nil, is_page = true)
         destination_path ||= file_path
         content_dir = Frontman::Config.get(:content_dir)
-        file_path = file_path.gsub(%r{^/}, '')
+        file_path = file_path.gsub(%r{^/}, "")
         destination_path = destination_path
-                           .gsub(%r{^/}, '')
-                           .gsub(%r{/[0-9]+?-}, '/')
-                           .sub(%r{^#{content_dir}/}, '')
+                           .gsub(%r{^/}, "")
+                           .gsub(%r{/[0-9]+?-}, "/")
+                           .sub(%r{^#{content_dir}/}, "")
 
         # We cache the newly created resource so we avoid loosing the cache
         # if from_path is called again with the same file
@@ -54,13 +54,13 @@ module Frontman
 
     sig { params(path: String).returns(Array) }
     def strip_extensions(path)
-      split = path.split('/')
-      without_extension = T.must(split.last).split('.')[0]
+      split = path.split("/")
+      without_extension = T.must(split.last).split(".")[0]
       path_without_extensions = split
                                 .first(split.length - 1)
                                 .push(T.must(without_extension))
-                                .join('/')
-      extensions = T.must(split.last).split('.')[1..]
+                                .join("/")
+      extensions = T.must(split.last).split(".")[1..]
       [path_without_extensions, extensions]
     end
 
@@ -70,18 +70,18 @@ module Frontman
         @destination_path
       )
 
-      destination_without_extension = '' if destination_without_extension == 'index'
+      destination_without_extension = "" if destination_without_extension == "index"
 
-      is_index_page = destination_without_extension.end_with?('/index')
+      is_index_page = destination_without_extension.end_with?("/index")
       @extension = dest_file_extensions.first
 
-      @destination_path = if (@extension == 'html' || extension.nil?) && !is_index_page
+      @destination_path = if (@extension == "html" || extension.nil?) && !is_index_page
                             "#{destination_without_extension}/index.html"
                           else
                             "#{destination_without_extension}.#{@extension}"
                           end
 
-      @path = "/#{@destination_path.chomp('index.html')}".gsub('//', '/')
+      @path = "/#{@destination_path.chomp('index.html')}".gsub("//", "/")
     end
 
     sig { void }

@@ -1,13 +1,13 @@
 # typed: true
 # frozen_string_literal: true
 
-require 'frontman/renderers/renderer'
-require 'frontman/renderers/erb_renderer'
-require 'frontman/renderers/haml_renderer'
-require 'frontman/renderers/markdown_renderer'
-require 'frontman/renderers/slim_renderer'
-require 'singleton'
-require 'sorbet-runtime'
+require "frontman/renderers/renderer"
+require "frontman/renderers/erb_renderer"
+require "frontman/renderers/haml_renderer"
+require "frontman/renderers/markdown_renderer"
+require "frontman/renderers/slim_renderer"
+require "singleton"
+require "sorbet-runtime"
 
 module Frontman
   class RendererResolver

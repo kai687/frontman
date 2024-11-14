@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-require 'sorbet-runtime'
+require "sorbet-runtime"
 
 module Frontman
   module DispatchEvents
@@ -50,7 +50,7 @@ module Frontman
 
     sig { params(events: T.any(Symbol, String)).returns(T::Array[String]) }
     def list(events)
-      events.to_s.split(',').map(&:strip)
+      events.to_s.split(",").map(&:strip)
     end
   end
 end

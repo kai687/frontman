@@ -1,23 +1,23 @@
 # frozen_string_literal: false
 
-require 'thor'
-require 'frontman/app'
-require 'frontman/bootstrapper'
-require 'frontman/builder/asset_pipeline'
-require 'frontman/builder/builder'
-require 'frontman/builder/mapping'
-require 'frontman/builder/statistics_collector'
-require 'frontman/config'
-require 'frontman/toolbox/timer'
-require 'frontman/sitemap_tree'
+require "thor"
+require "frontman/app"
+require "frontman/bootstrapper"
+require "frontman/builder/asset_pipeline"
+require "frontman/builder/builder"
+require "frontman/builder/mapping"
+require "frontman/builder/statistics_collector"
+require "frontman/config"
+require "frontman/toolbox/timer"
+require "frontman/sitemap_tree"
 
 module Frontman
   class CLI < Thor
     option :parallel, type: :boolean
     option :verbose, type: :boolean
-    desc 'build', 'Build the static website'
+    desc "build", "Build the static website"
     def build
-      Frontman::Config.set(:mode, 'build')
+      Frontman::Config.set(:mode, "build")
       app = Frontman::App.instance
       Frontman::Bootstrapper.bootstrap_app(app)
       content_dir = Frontman::Config.get(:content_dir)
@@ -40,12 +40,12 @@ module Frontman
       timer = Frontman::Toolbox::Timer.start
 
       build_dir = "#{Dir.pwd}/#{Frontman::Config.get(:build_dir)}"
-      current_build_files = Dir.glob(File.join(build_dir, '/**/*')).reject do |f|
+      current_build_files = Dir.glob(File.join(build_dir, "/**/*")).reject do |f|
         File.directory? f
       end
 
       public_dir = Frontman::Config.get(:public_dir)
-      assets_to_build = Dir.glob(File.join(public_dir, '**/*')).reject do |f|
+      assets_to_build = Dir.glob(File.join(public_dir, "**/*")).reject do |f|
         File.directory? f
       end
 
@@ -56,7 +56,7 @@ module Frontman
       builder = Frontman::Builder::Builder.new
       builder.current_build_files = current_build_files
 
-      builder.on('created, updated, deleted, unchanged', ->(build_file) {
+      builder.on("created, updated, deleted, unchanged", ->(build_file) {
         mapping.add_from_build_file(build_file)
       })
 

@@ -1,8 +1,8 @@
 # typed: true
 # frozen_string_literal: true
 
-require 'sorbet-runtime'
-require 'English'
+require "sorbet-runtime"
+require "English"
 
 module Frontman
   module Builder

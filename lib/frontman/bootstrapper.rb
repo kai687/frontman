@@ -1,10 +1,10 @@
 # typed: true
 # frozen_string_literal: true
 
-require 'dotenv'
-require 'sorbet-runtime'
-require 'frontman/app'
-require 'frontman/resource'
+require "dotenv"
+require "sorbet-runtime"
+require "frontman/app"
+require "frontman/resource"
 
 module Frontman
   class Bootstrapper
@@ -16,11 +16,11 @@ module Frontman
         Dir
           .entries(path)
           .map do |file|
-            next unless file.end_with?('_helper.rb')
+            next unless file.end_with?("_helper.rb")
 
             {
               path: File.join(path, file),
-              name: file.split('_').collect(&:capitalize).join.gsub('.rb', '')
+              name: file.split("_").collect(&:capitalize).join.gsub(".rb", "")
             }
           end
           .compact
@@ -44,13 +44,13 @@ module Frontman
       sig { params(content_root: String).returns(T::Array[Frontman::Resource]) }
       def resources_from_dir(content_root)
         files = Dir.glob(
-          File.join(content_root, '**/*')
+          File.join(content_root, "**/*")
         )
 
-        files.reject! { |f| File.directory?(f) || File.fnmatch('**.yml', f) }
+        files.reject! { |f| File.directory?(f) || File.fnmatch("**.yml", f) }
         files.sort! { |a, b| a <=> b || 0 }
         files.map do |path|
-          Frontman::Resource.from_path(path, path.sub(/^#{content_root}/, ''))
+          Frontman::Resource.from_path(path, path.sub(/^#{content_root}/, ""))
         end
       end
 
@@ -63,7 +63,7 @@ module Frontman
       sig { params(app: Frontman::App).void }
       def register_default_helpers(app)
         app.register_helpers(
-          find_helpers_in(File.join(__dir__, 'helpers'))
+          find_helpers_in(File.join(__dir__, "helpers"))
         )
       end
     end

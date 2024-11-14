@@ -1,8 +1,8 @@
 # typed: false
 # frozen_string_literal: true
 
-require './spec/spec_setup'
-require 'frontman/config'
+require "./spec/spec_setup"
+require "frontman/config"
 
 describe Frontman::Config do
   before(:each) do
@@ -11,51 +11,51 @@ describe Frontman::Config do
     end
   end
 
-  it 'should hold the correct value' do
-    Frontman::Config.set(:foo, 'bar')
+  it "should hold the correct value" do
+    Frontman::Config.set(:foo, "bar")
 
-    expect(Frontman::Config.get('foo')).to eq 'bar'
+    expect(Frontman::Config.get("foo")).to eq "bar"
   end
 
-  it 'should not return the default if the set value is falsy' do
+  it "should not return the default if the set value is falsy" do
     Frontman::Config.set(:foo, nil)
 
-    expect(Frontman::Config.get('foo', fallback: 'baz')).to eq nil
+    expect(Frontman::Config.get("foo", fallback: "baz")).to eq nil
   end
 
-  it 'should return the default value if no fallback is provided' do
-    expect(Frontman::Config.get(:layout_dir)).to eq 'views/layouts'
+  it "should return the default value if no fallback is provided" do
+    expect(Frontman::Config.get(:layout_dir)).to eq "views/layouts"
   end
 
-  it 'should return the fallback value even if a default value exists' do
-    expect(Frontman::Config.get(:layout_dir, fallback: 'foo')).to eq 'foo'
+  it "should return the fallback value even if a default value exists" do
+    expect(Frontman::Config.get(:layout_dir, fallback: "foo")).to eq "foo"
   end
 
-  it 'should return the fallback value if the key is not set' do
-    expect(Frontman::Config.get('foo', fallback: 'baz')).to eq 'baz'
+  it "should return the fallback value if the key is not set" do
+    expect(Frontman::Config.get("foo", fallback: "baz")).to eq "baz"
   end
 
-  it 'should indicate whether the key exists' do
+  it "should indicate whether the key exists" do
     Frontman::Config.set(:foo, nil)
 
-    expect(Frontman::Config.has?('foo')).to eq true
-    expect(Frontman::Config.has?('bar')).to eq false
+    expect(Frontman::Config.has?("foo")).to eq true
+    expect(Frontman::Config.has?("bar")).to eq false
   end
 
-  it 'should delete the config' do
-    expect(Frontman::Config.has?('foo')).to eq false
+  it "should delete the config" do
+    expect(Frontman::Config.has?("foo")).to eq false
     Frontman::Config.set(:foo, nil)
-    expect(Frontman::Config.has?('foo')).to eq true
+    expect(Frontman::Config.has?("foo")).to eq true
     Frontman::Config.delete(:foo)
-    expect(Frontman::Config.has?('foo')).to eq false
+    expect(Frontman::Config.has?("foo")).to eq false
   end
 
-  it 'should return all the config values' do
+  it "should return all the config values" do
     Frontman::Config.set(:foo, nil)
-    Frontman::Config.set('bar', 'baz')
+    Frontman::Config.set("bar", "baz")
     expected = {
       foo: nil,
-      bar: 'baz'
+      bar: "baz"
     }
     expect(Frontman::Config.all).to eq expected
   end

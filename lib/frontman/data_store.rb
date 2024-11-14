@@ -1,9 +1,9 @@
 # typed: true
 # frozen_string_literal: false
 
-require 'pathname'
-require 'frontman/data_store_file'
-require 'sorbet-runtime'
+require "pathname"
+require "frontman/data_store_file"
+require "sorbet-runtime"
 
 module Frontman
   class DataStore
@@ -79,7 +79,7 @@ module Frontman
     sig { void }
     def load_files
       Dir.entries(@path).sort.each do |file|
-        next if (file == '.') || (file == '..')
+        next if (file == ".") || (file == "..")
 
         file_path = "#{@path}/#{file}"
 
@@ -88,7 +88,7 @@ module Frontman
         # - omit the number when accessing the object
         base_file_name = file.gsub(/[0-9]*+-?(.+)/, '\1')
 
-        if File.file?(file_path) && (File.extname(file) == '.yml')
+        if File.file?(file_path) && (File.extname(file) == ".yml")
           method_name = File.basename(base_file_name, File.extname(file))
           @cache[method_name.to_s] = Frontman::DataStoreFile.new(
             file_path, file, method_name, self
