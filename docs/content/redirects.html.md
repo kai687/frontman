@@ -16,5 +16,5 @@ This creates a new HTML file `from-url/index.html` with
 [meta refresh](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#http-equiv)
 tags.
 
+> [!TIP]
 > Configure your server or hosting platform to return [301 headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/301) as well.
-{:.tip}

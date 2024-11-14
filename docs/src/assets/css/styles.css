@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 #menu ~ #nav {
-  @apply max-h-0 lg:max-h-full overflow-hidden lg:overflow-visible transition-height;
+  @apply max-h-0 overflow-hidden transition-height lg:max-h-full lg:overflow-visible;
 }
 
 #menu:checked ~ #nav {
-  @apply max-h-[500px] lg:max-h-full overflow-y-auto;
+  @apply max-h-[500px] overflow-y-auto lg:max-h-full;
 }
 
 #menu:checked + label {
-  @apply font-medium translate-x-1 translate-y-1 border-black dark:border-white shadow;
+  @apply translate-x-1 translate-y-1 border-black font-medium shadow dark:border-white;
 }
 
 div.highlight,
@@ -24,7 +24,7 @@ pre.highlight {
 }
 
 .copy {
-  @apply text-xs uppercase tracking-wide absolute top-12 right-2 font-mono border rounded-md px-1 py-0.5 opacity-0 transition active:translate-x-px active:translate-y-px focus:opacity-100 hover:border-black dark:hover:border-white bg-inherit;
+  @apply absolute right-2 top-12 rounded-md border bg-inherit px-1 py-0.5 font-mono text-xs uppercase tracking-wide opacity-0 transition hover:border-black focus:opacity-100 active:translate-x-px active:translate-y-px dark:hover:border-white;
 }
 
 div.highlight:hover .copy,
@@ -38,8 +38,52 @@ p.tableblock {
   @apply m-0;
 }
 
-blockquote.tip {
+aside {
+  @apply border-l-4 pl-4 text-base tracking-wide;
+}
+
+aside::before {
+  @apply font-bold tracking-wider;
+}
+
+aside.tip {
   @apply border-green-500;
+}
+
+aside.tip::before {
+  @apply text-green-600 content-["Tip"];
+}
+
+aside.note {
+  @apply border-blue-500;
+}
+
+aside.note::before {
+  @apply text-blue-600 content-["Note"];
+}
+
+aside.important {
+  @apply border-purple-500;
+}
+
+aside.important::before {
+  @apply text-purple-600 content-["Important"];
+}
+
+aside.warning {
+  @apply border-yellow-500;
+}
+
+aside.warning::before {
+  @apply text-yellow-600 content-["Warning"];
+}
+
+aside.caution {
+  @apply border-red-500;
+}
+
+aside.caution::before {
+  @apply text-red-600 content-["Caution"];
 }
 
 details p {

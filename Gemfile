@@ -17,3 +17,5 @@ group :docs, optional: true do
   gem "asciidoctor", "~> 2.0"
   gem "json-schema", "~> 4.1"
 end
+
+gem "webrick", "~> 1.9"

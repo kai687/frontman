@@ -8,6 +8,8 @@ module Kramdown
   module Converter
     # Add header links to h2 and beyond
     class WithHeaderlink < Html
+      CALLOUT_PATTERN = /\[!(NOTE|TIP|WARNING|IMPORTANT|CAUTION)\]/.freeze
+
       def convert_header(element, indent)
         attr = element.attr.dup
         attr["id"] = generate_id(element.options[:raw_text]) if @options[:auto_ids] && !attr["id"]
@@ -29,6 +31,17 @@ module Kramdown
         end
 
         format_as_block_html("h#{level}", attr, inner(element, indent), indent)
+      end
+
+      def convert_blockquote(element, indent)
+        content = element.children.map { |child| convert(child, indent) }.join
+        if content =~ CALLOUT_PATTERN
+          callout_type = Regexp.last_match(1).downcase
+          content.gsub!(CALLOUT_PATTERN, "")
+          format_as_block_html("aside", {class: callout_type}, content, indent)
+        else
+          super
+        end
       end
     end
   end
